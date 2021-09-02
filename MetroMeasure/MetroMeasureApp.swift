@@ -9,9 +9,12 @@ import SwiftUI
 
 @main
 struct MetroMeasureApp: App {
+    
+    @StateObject var parameters = AppParameters()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(parameters)
         }
     }
 }

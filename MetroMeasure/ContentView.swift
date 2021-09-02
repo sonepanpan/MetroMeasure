@@ -8,14 +8,17 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @EnvironmentObject var parameters: AppParameters
     var body: some View {
-        Text("Hello, world!")
-            .padding()
-    }
-}
-
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView()
+        VStack{
+            ZStack(alignment: .center){
+                arViewContainer
+                Image(systemName: "plus").foregroundColor(.white)
+            }.ignoresSafeArea()
+            ZStack{
+            ControlView()
+            }.frame(height: 200, alignment: .center)
+        }
     }
 }
