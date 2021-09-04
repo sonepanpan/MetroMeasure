@@ -20,7 +20,7 @@
 /* Begin PBXFileReference section */
 		8F9AFD3F26E0B693009AB686 /* MetroMeasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetroMeasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F9AFD4226E0B693009AB686 /* MetroMeasureApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMeasureApp.swift; sourceTree = "<group>"; };
-		8F9AFD4426E0B693009AB686 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		8F9AFD4426E0B693009AB686 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
 		8F9AFD4626E0B696009AB686 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		8F9AFD4926E0B696009AB686 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		8F9AFD4B26E0B696009AB686 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };

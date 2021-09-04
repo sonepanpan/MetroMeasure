@@ -14,6 +14,7 @@ class ARViewFunctions: ARView{
     var point1: SIMD3<Float>? = nil
     var point2: SIMD3<Float>? = nil
     
+    
     func setMasterAnchor(){
         let zeroPoint = Entity()
         // SIMD3<Float>.init(x:0,y:0,z:0) == .zero
@@ -28,35 +29,75 @@ class ARViewFunctions: ARView{
         let ARAnchorEntity = AnchorEntity(anchor: raycastAnchor)
         self.scene.addAnchor(ARAnchorEntity)
         ARAnchorEntity.addChild(masterAnchor)
-        
     }
     
-    func castRay() -> Float? {
+    func castRay() -> Bool {
         let location = CGPoint(x: bounds.midX, y: bounds.midY)
         let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
         
         if let firstResult = result.first{
-            //
             let target = firstResult.worldTransform.Position()
             if point1 == nil {
                 point1 = target
                 addDot(position: point1!, name: "point1")
+                print("DEBUG: First Point Build")
+                return true
             }
-            else if point2 == nil{
+            else if point2 == nil {
                 point2 = target
                 addDot(position: point2!, name: "point2")
-            }
-            else{
-                reset()
-                return 0.0
-            }
-            if point1 != nil && point2 != nil{
-                let height = calculateDistance(point1!, point2!)
-                print("measured \(height*100)cm")
-                return height
+                print("DEBUG: Second Point Build")
+                return true
             }
         }
-        return nil
+        print("DEBUG: Fall to hit")
+        return false
+    }
+    
+    func safeAndCalculate() -> Float {
+        if point1 != nil && point2 != nil{
+            //calculate
+            let height = calculateDistance(point1!, point2!)
+            print("measured \(height*100)cm")
+            return height
+            //next page
+        }
+        else {
+            return -1.0
+        }
+    }
+    
+    func resetAPoint() -> String{
+        if point2 == nil
+        {
+            guard let p1 = self.scene.findEntity(named: "point1") else {print("cant find point1")
+                return "Cant find point1"}
+            p1.removeFromParent()
+            point1 = nil
+            print("DEBUG: Reset point1.")
+            return "Choose first point"
+        }
+        else
+        {
+            guard let p2 = self.scene.findEntity(named: "point2") else {print("cant find point2")
+                return "Cant find point2" }
+            p2.removeFromParent()
+            point2 = nil
+            print("DEBUG: Reset point2.")
+            return "Choose second point"
+        }
+    }
+    
+    func resetAllPoint(){
+        guard let p1 = self.scene.findEntity(named: "point1") else {print("cant find point1")
+            return }
+        guard let p2 = self.scene.findEntity(named: "point2") else {print("cant find point2")
+            return}
+        p1.removeFromParent()
+        p2.removeFromParent()
+        point1 = nil
+        point2 = nil
+        print("DEBUG: Reset ALL Points.")
     }
     
     func calculateDistance(_ point1: SIMD3<Float>,_ point2: SIMD3<Float>) -> Float{
@@ -77,17 +118,6 @@ class ARViewFunctions: ARView{
         else {print("Cant find master anchor")
             return }
         masterAnchor.addChild(dot, preservingWorldTransform: true)
-    }
-    
-    func reset(){
-        guard let p1 = self.scene.findEntity(named: "point1") else {print("cant find point1")
-            return}
-        guard let p2 = self.scene.findEntity(named: "point2") else {print("cant find point2")
-            return}
-        p1.removeFromParent()
-        p2.removeFromParent()
-        point1 = nil
-        point2 = nil
     }
 }
 
