@@ -33,6 +33,7 @@ class ARViewFunctions: ARView{
     
     func castRay() -> Bool {
         let location = CGPoint(x: bounds.midX, y: bounds.midY)
+        //let location = CGPoint(x: self.view.frame.height / 2, y:self.view.frame.height / 2)
         let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
         
         if let firstResult = result.first{

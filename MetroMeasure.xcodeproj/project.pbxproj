@@ -3,21 +3,28 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F933F8326E8F76A00232BE1 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F933F8226E8F76A00232BE1 /* ScanView.swift */; };
+		8F933F8726E9040200232BE1 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F933F8626E9040200232BE1 /* ListView.swift */; };
+		8F933F8926E9087300232BE1 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F933F8826E9087300232BE1 /* Data.swift */; };
 		8F9AFD4326E0B693009AB686 /* MetroMeasureApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD4226E0B693009AB686 /* MetroMeasureApp.swift */; };
 		8F9AFD4526E0B693009AB686 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD4426E0B693009AB686 /* ContentView.swift */; };
 		8F9AFD4726E0B696009AB686 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F9AFD4626E0B696009AB686 /* Assets.xcassets */; };
 		8F9AFD4A26E0B696009AB686 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 8F9AFD4926E0B696009AB686 /* Preview Assets.xcassets */; };
 		8F9AFD5226E0B733009AB686 /* ARViewFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5126E0B733009AB686 /* ARViewFunctions.swift */; };
 		8F9AFD5426E0B7D1009AB686 /* ARViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */; };
-		8F9AFD5626E0CA3D009AB686 /* ControlView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5526E0CA3D009AB686 /* ControlView.swift */; };
+		8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5526E0CA3D009AB686 /* Measure.swift */; };
 		8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5726E0CA93009AB686 /* Parameters.swift */; };
+		8FDEF0FA26E6683B00D8C7D2 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8FDEF0F926E6683B00D8C7D2 /* CodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F933F8226E8F76A00232BE1 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
+		8F933F8626E9040200232BE1 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; tabWidth = 4; };
+		8F933F8826E9087300232BE1 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
 		8F9AFD3F26E0B693009AB686 /* MetroMeasure.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MetroMeasure.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		8F9AFD4226E0B693009AB686 /* MetroMeasureApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MetroMeasureApp.swift; sourceTree = "<group>"; };
 		8F9AFD4426E0B693009AB686 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; tabWidth = 4; usesTabs = 0; };
@@ -26,7 +33,7 @@
 		8F9AFD4B26E0B696009AB686 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		8F9AFD5126E0B733009AB686 /* ARViewFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewFunctions.swift; sourceTree = "<group>"; };
 		8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCoordinator.swift; sourceTree = "<group>"; };
-		8F9AFD5526E0CA3D009AB686 /* ControlView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ControlView.swift; sourceTree = "<group>"; };
+		8F9AFD5526E0CA3D009AB686 /* Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
 		8F9AFD5726E0CA93009AB686 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -35,6 +42,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8FDEF0FA26E6683B00D8C7D2 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -62,7 +70,10 @@
 			children = (
 				8F9AFD4226E0B693009AB686 /* MetroMeasureApp.swift */,
 				8F9AFD4426E0B693009AB686 /* ContentView.swift */,
-				8F9AFD5526E0CA3D009AB686 /* ControlView.swift */,
+				8F9AFD5526E0CA3D009AB686 /* Measure.swift */,
+				8F933F8626E9040200232BE1 /* ListView.swift */,
+				8F933F8826E9087300232BE1 /* Data.swift */,
+				8F933F8226E8F76A00232BE1 /* ScanView.swift */,
 				8F9AFD5126E0B733009AB686 /* ARViewFunctions.swift */,
 				8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */,
 				8F9AFD4626E0B696009AB686 /* Assets.xcassets */,
@@ -97,6 +108,9 @@
 			dependencies = (
 			);
 			name = MetroMeasure;
+			packageProductDependencies = (
+				8FDEF0F926E6683B00D8C7D2 /* CodeScanner */,
+			);
 			productName = MetroMeasure;
 			productReference = 8F9AFD3F26E0B693009AB686 /* MetroMeasure.app */;
 			productType = "com.apple.product-type.application";
@@ -124,6 +138,9 @@
 				Base,
 			);
 			mainGroup = 8F9AFD3626E0B693009AB686;
+			packageReferences = (
+				8FDEF0F826E6683B00D8C7D2 /* XCRemoteSwiftPackageReference "CodeScanner" */,
+			);
 			productRefGroup = 8F9AFD4026E0B693009AB686 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -150,12 +167,15 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F933F8326E8F76A00232BE1 /* ScanView.swift in Sources */,
 				8F9AFD5426E0B7D1009AB686 /* ARViewCoordinator.swift in Sources */,
 				8F9AFD4526E0B693009AB686 /* ContentView.swift in Sources */,
 				8F9AFD4326E0B693009AB686 /* MetroMeasureApp.swift in Sources */,
 				8F9AFD5226E0B733009AB686 /* ARViewFunctions.swift in Sources */,
-				8F9AFD5626E0CA3D009AB686 /* ControlView.swift in Sources */,
+				8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */,
 				8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */,
+				8F933F8926E9087300232BE1 /* Data.swift in Sources */,
+				8F933F8726E9040200232BE1 /* ListView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -344,6 +364,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		8FDEF0F826E6683B00D8C7D2 /* XCRemoteSwiftPackageReference "CodeScanner" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/twostraws/CodeScanner";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.2;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		8FDEF0F926E6683B00D8C7D2 /* CodeScanner */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FDEF0F826E6683B00D8C7D2 /* XCRemoteSwiftPackageReference "CodeScanner" */;
+			productName = CodeScanner;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 8F9AFD3726E0B693009AB686 /* Project object */;
 }
