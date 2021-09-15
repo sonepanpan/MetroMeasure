@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F57890026F0D50900C7AE49 /* addNewPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */; };
+		8F57890226F0D53D00C7AE49 /* paperDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57890126F0D53D00C7AE49 /* paperDetailView.swift */; };
 		8F933F8326E8F76A00232BE1 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F933F8226E8F76A00232BE1 /* ScanView.swift */; };
 		8F933F8726E9040200232BE1 /* ListView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F933F8626E9040200232BE1 /* ListView.swift */; };
 		8F933F8926E9087300232BE1 /* Data.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F933F8826E9087300232BE1 /* Data.swift */; };
@@ -22,6 +24,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addNewPaperView.swift; sourceTree = "<group>"; };
+		8F57890126F0D53D00C7AE49 /* paperDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paperDetailView.swift; sourceTree = "<group>"; };
 		8F933F8226E8F76A00232BE1 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
 		8F933F8626E9040200232BE1 /* ListView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ListView.swift; sourceTree = "<group>"; tabWidth = 4; };
 		8F933F8826E9087300232BE1 /* Data.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Data.swift; sourceTree = "<group>"; };
@@ -72,6 +76,8 @@
 				8F9AFD4426E0B693009AB686 /* ContentView.swift */,
 				8F9AFD5526E0CA3D009AB686 /* Measure.swift */,
 				8F933F8626E9040200232BE1 /* ListView.swift */,
+				8F57890126F0D53D00C7AE49 /* paperDetailView.swift */,
+				8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */,
 				8F933F8826E9087300232BE1 /* Data.swift */,
 				8F933F8226E8F76A00232BE1 /* ScanView.swift */,
 				8F9AFD5126E0B733009AB686 /* ARViewFunctions.swift */,
@@ -167,6 +173,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8F57890026F0D50900C7AE49 /* addNewPaperView.swift in Sources */,
+				8F57890226F0D53D00C7AE49 /* paperDetailView.swift in Sources */,
 				8F933F8326E8F76A00232BE1 /* ScanView.swift in Sources */,
 				8F9AFD5426E0B7D1009AB686 /* ARViewCoordinator.swift in Sources */,
 				8F9AFD4526E0B693009AB686 /* ContentView.swift in Sources */,

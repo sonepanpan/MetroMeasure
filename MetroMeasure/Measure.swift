@@ -11,13 +11,17 @@ import CodeScanner
 struct MeasureView: View {
     
     @EnvironmentObject var parameters: AppParameters
+    
+    @Binding var showScanView: Bool
+    @Binding var carriageNum: String
+    @Binding var deviceNum: String
+    
+    @State var isScanned = false
     @State var isFinished: Bool = false
-    @State var isScanned: Bool = false
     
     var body: some View {
-        if isScanned == false {
-            
-//            ScanView(isScanned: $isScanned)
+        if isScanned == false{
+            ScanView(isScanned: $isScanned, carriageNum: $carriageNum, deviceNum: $deviceNum)
         }
         else{
             ZStack(alignment: .center){
@@ -25,7 +29,7 @@ struct MeasureView: View {
                 Image(systemName: "plus").foregroundColor(.white)
                 
                 if isFinished{
-                    ResultView(isFinished: $isFinished)
+                    ResultView(isFinished: $isFinished, showScanView: $showScanView)
                 }
                 
                 else{
@@ -43,7 +47,8 @@ struct ResultView: View {
     @EnvironmentObject var parameters: AppParameters
     @Environment(\.presentationMode) var mode: Binding<PresentationMode>
     @Binding var isFinished: Bool
-    
+    @Binding var showScanView: Bool
+
     var body: some View {
         HStack(alignment: .center){
             //Reset Button
@@ -67,9 +72,9 @@ struct ResultView: View {
                 .padding(20)
             
             //Return to Main View
-            Button(action: { self.mode.wrappedValue.dismiss()
+            Button(action: {
+                showScanView = false
                 arViewContainer.arView.resetAllPoint()
-                isFinished = false
             })
             {Image(systemName: "paperplane").foregroundColor(.white)
                 .frame(width: 60, height: 60)

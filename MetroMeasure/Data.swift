@@ -11,7 +11,8 @@ struct Papers: Decodable{
     var items: [Paper]
 }
 
-struct Paper: Decodable{
+struct Paper: Decodable, Identifiable{
+    var id = UUID()
     //車組編號
     let groupNum: String
     //工單號碼
@@ -24,7 +25,7 @@ struct Paper: Decodable{
 //    let finishDate: Date
     
     //集電靴 4*4=16
-    let Devices: [Device]?
+    let Carriages: [Carriage]?
     
     //完工日期
     
@@ -33,9 +34,19 @@ struct Paper: Decodable{
 }
 
 
-struct Device: Decodable{
+struct Carriage: Decodable, Identifiable{
+    var id = UUID()
+
     //車廂編號
     let carriageNum: String
+    
+    let Devices: [Device]?
+
+}
+
+struct Device: Decodable, Identifiable{
+    var id = UUID()
+    
     //L1 L2 R1 R2
     let deviceNum: String
     //厚度
