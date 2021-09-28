@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F13F71F270229B100ECFF81 /* FocusEntity+Alignment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13F71E270229B100ECFF81 /* FocusEntity+Alignment.swift */; };
+		8F13F721270229CA00ECFF81 /* FocusEntity+Classic.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13F720270229CA00ECFF81 /* FocusEntity+Classic.swift */; };
+		8F13F723270229EC00ECFF81 /* FocusEntity+Colored.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13F722270229EC00ECFF81 /* FocusEntity+Colored.swift */; };
+		8F13F72527022A0800ECFF81 /* FocusEntity+Segment.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13F72427022A0800ECFF81 /* FocusEntity+Segment.swift */; };
+		8F13F72727022A2800ECFF81 /* FocusEntityComponent.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F13F72627022A2800ECFF81 /* FocusEntityComponent.swift */; };
 		8F57890026F0D50900C7AE49 /* addNewPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */; };
 		8F57890226F0D53D00C7AE49 /* paperDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57890126F0D53D00C7AE49 /* paperDetailView.swift */; };
 		8F933F8326E8F76A00232BE1 /* ScanView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F933F8226E8F76A00232BE1 /* ScanView.swift */; };
@@ -20,10 +25,17 @@
 		8F9AFD5426E0B7D1009AB686 /* ARViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */; };
 		8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5526E0CA3D009AB686 /* Measure.swift */; };
 		8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5726E0CA93009AB686 /* Parameters.swift */; };
+		8FA3EAA02702194E00A7EBC5 /* float4x4+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3EA9F2702194E00A7EBC5 /* float4x4+Extension.swift */; };
+		8FA3EAA22702197C00A7EBC5 /* FocusEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA3EAA12702197C00A7EBC5 /* FocusEntity.swift */; };
 		8FDEF0FA26E6683B00D8C7D2 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8FDEF0F926E6683B00D8C7D2 /* CodeScanner */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F13F71E270229B100ECFF81 /* FocusEntity+Alignment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusEntity+Alignment.swift"; sourceTree = "<group>"; };
+		8F13F720270229CA00ECFF81 /* FocusEntity+Classic.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusEntity+Classic.swift"; sourceTree = "<group>"; };
+		8F13F722270229EC00ECFF81 /* FocusEntity+Colored.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusEntity+Colored.swift"; sourceTree = "<group>"; };
+		8F13F72427022A0800ECFF81 /* FocusEntity+Segment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "FocusEntity+Segment.swift"; sourceTree = "<group>"; };
+		8F13F72627022A2800ECFF81 /* FocusEntityComponent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusEntityComponent.swift; sourceTree = "<group>"; };
 		8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addNewPaperView.swift; sourceTree = "<group>"; };
 		8F57890126F0D53D00C7AE49 /* paperDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paperDetailView.swift; sourceTree = "<group>"; };
 		8F933F8226E8F76A00232BE1 /* ScanView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScanView.swift; sourceTree = "<group>"; };
@@ -39,6 +51,8 @@
 		8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCoordinator.swift; sourceTree = "<group>"; };
 		8F9AFD5526E0CA3D009AB686 /* Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
 		8F9AFD5726E0CA93009AB686 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		8FA3EA9F2702194E00A7EBC5 /* float4x4+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "float4x4+Extension.swift"; sourceTree = "<group>"; };
+		8FA3EAA12702197C00A7EBC5 /* FocusEntity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FocusEntity.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -72,6 +86,7 @@
 		8F9AFD4126E0B693009AB686 /* MetroMeasure */ = {
 			isa = PBXGroup;
 			children = (
+				8FA3EA982702172800A7EBC5 /* FocusEntity */,
 				8F9AFD4226E0B693009AB686 /* MetroMeasureApp.swift */,
 				8F9AFD4426E0B693009AB686 /* ContentView.swift */,
 				8F9AFD5526E0CA3D009AB686 /* Measure.swift */,
@@ -96,6 +111,20 @@
 				8F9AFD4926E0B696009AB686 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		8FA3EA982702172800A7EBC5 /* FocusEntity */ = {
+			isa = PBXGroup;
+			children = (
+				8FA3EA9F2702194E00A7EBC5 /* float4x4+Extension.swift */,
+				8FA3EAA12702197C00A7EBC5 /* FocusEntity.swift */,
+				8F13F71E270229B100ECFF81 /* FocusEntity+Alignment.swift */,
+				8F13F720270229CA00ECFF81 /* FocusEntity+Classic.swift */,
+				8F13F722270229EC00ECFF81 /* FocusEntity+Colored.swift */,
+				8F13F72427022A0800ECFF81 /* FocusEntity+Segment.swift */,
+				8F13F72627022A2800ECFF81 /* FocusEntityComponent.swift */,
+			);
+			path = FocusEntity;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -175,15 +204,22 @@
 			files = (
 				8F57890026F0D50900C7AE49 /* addNewPaperView.swift in Sources */,
 				8F57890226F0D53D00C7AE49 /* paperDetailView.swift in Sources */,
+				8FA3EAA02702194E00A7EBC5 /* float4x4+Extension.swift in Sources */,
 				8F933F8326E8F76A00232BE1 /* ScanView.swift in Sources */,
 				8F9AFD5426E0B7D1009AB686 /* ARViewCoordinator.swift in Sources */,
 				8F9AFD4526E0B693009AB686 /* ContentView.swift in Sources */,
 				8F9AFD4326E0B693009AB686 /* MetroMeasureApp.swift in Sources */,
+				8FA3EAA22702197C00A7EBC5 /* FocusEntity.swift in Sources */,
 				8F9AFD5226E0B733009AB686 /* ARViewFunctions.swift in Sources */,
 				8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */,
 				8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */,
 				8F933F8926E9087300232BE1 /* Data.swift in Sources */,
+				8F13F721270229CA00ECFF81 /* FocusEntity+Classic.swift in Sources */,
+				8F13F72527022A0800ECFF81 /* FocusEntity+Segment.swift in Sources */,
 				8F933F8726E9040200232BE1 /* ListView.swift in Sources */,
+				8F13F72727022A2800ECFF81 /* FocusEntityComponent.swift in Sources */,
+				8F13F71F270229B100ECFF81 /* FocusEntity+Alignment.swift in Sources */,
+				8F13F723270229EC00ECFF81 /* FocusEntity+Colored.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

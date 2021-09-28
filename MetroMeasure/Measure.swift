@@ -7,6 +7,7 @@
 
 import SwiftUI
 import CodeScanner
+import AVFoundation
 
 struct MeasureView: View {
     
@@ -26,7 +27,10 @@ struct MeasureView: View {
         else{
             ZStack(alignment: .center){
                 arViewContainer.ignoresSafeArea()
-                Image(systemName: "plus").foregroundColor(.white)
+                Image(systemName: "plus")
+                    .foregroundColor(.yellow)
+                    .position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*4.7)
+        
                 
                 if isFinished{
                     ResultView(isFinished: $isFinished, showScanView: $showScanView)
@@ -65,8 +69,9 @@ struct ResultView: View {
                 .cornerRadius(30)
                 .padding(20)
             }
-            
-            Text(String(format: "%.2fcm", parameters.measuredHeight*100))
+        
+            Text(String(format: "%.2f\ncm", parameters.measuredHeight*100))
+                .frame(width: 100, height: 100, alignment: .center)
                 .font(.largeTitle)
                 .foregroundColor(.white)
                 .padding(20)
@@ -110,19 +115,28 @@ struct ControlView: View
     @State var Hint: String = "Choose first point"
     @Binding var isFinished: Bool
     
+    @State private var flashlight = false
+    
     //    @Binding var IsPlacementEnabled: Bool
     //    @Binding var SelectedModel: Model?
     //    @Binding var ModelConfirmedForPlacement: Model?
     var body: some View
     {
         VStack{
+            Toggle("Need Some Light?", isOn: $flashlight).foregroundColor(.white).onChange(of: flashlight, perform: { value in
+                if flashlight{
+                    toggleTorch(on: true)
+                }
+                else{
+                    toggleTorch(on: false)
+                }
+            }).frame(width: 250, height: 30, alignment: .center)
             Text(Hint).foregroundColor(.white).font(.largeTitle)
             HStack
             {
                 if isHit
                 {
                     //Cancel Button
-                    
                     Button(action:
                             {
                                 print("DEBUG: Cancel chosen point.")
@@ -139,7 +153,11 @@ struct ControlView: View
                     }
                     
                     //Confirm Button
-                    Button(action: safeAndCalculate)
+                    Button(action: {
+                        safeAndCalculate()
+                        if arViewContainer.arView.point2 != nil {flashlight = false}
+                    }
+                    )
                     {Image(systemName: "checkmark").foregroundColor(.white)
                         .frame(width: 60, height: 60)
                         .font(.title)
@@ -162,7 +180,7 @@ struct ControlView: View
                     
                 }
             }
-        }.position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*8)
+        }.position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*7.5)
     }
     
     func castRay()
@@ -185,6 +203,7 @@ struct ControlView: View
     }
     
     func safeAndCalculate(){
+        
         let result = arViewContainer.arView.safeAndCalculate()
         if result >= 0
         {
@@ -202,6 +221,27 @@ struct ControlView: View
         let generator =  UIImpactFeedbackGenerator(style: .medium)
         generator.prepare()
         generator.impactOccurred()
+    }
+    func toggleTorch(on: Bool) {
+        guard let device = AVCaptureDevice.default(for: .video) else { return }
+
+        if device.hasTorch {
+            do {
+                try device.lockForConfiguration()
+
+                if on == true {
+                    device.torchMode = .on
+                } else {
+                    device.torchMode = .off
+                }
+
+                device.unlockForConfiguration()
+            } catch {
+                print("Torch could not be used")
+            }
+        } else {
+            print("Torch is not available")
+        }
     }
 }
 
