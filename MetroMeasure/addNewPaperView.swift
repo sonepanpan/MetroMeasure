@@ -19,8 +19,11 @@ struct addNewPaperView: View{
     @State var message = ""
     @State var isAdded = false
     @State var showScanView = false
-
-
+    @State var showRailHeightMeasured = false
+    @State var isRailHeightMeasured = false
+    @State var useLess = false
+    
+    
     var body: some View{
         VStack{
             List{
@@ -37,9 +40,19 @@ struct addNewPaperView: View{
                         Text("執行人員: ")
                         TextField("Paul" , text: $operatorName)
                     }
-                    DatePicker("開工日期: ", selection: $startDate/*, displayedComponents: .date*/).frame(alignment: .center)
+                    DatePicker("開工日期: ", selection: $startDate, displayedComponents: .date).frame(alignment: .center)
+                    
+                    
                     HStack{
-                        Text("集電靴1: ")
+                        Text("鐵軌高度: ")
+                        Text(String(format: "%.2f cm", parameters.measuredRailHeight*100))
+                        Button(action: {showRailHeightMeasured = true}, label: {
+                            Image(systemName: "ruler")
+                        }).frame(alignment: .center).sheet(isPresented: $showRailHeightMeasured, content: {MeasureRailHeight(showRailHeightMeasured: $showRailHeightMeasured)}
+                        )
+                    }
+                    HStack{
+                        Text("集電靴: ")
                         Text(carriageNum + "  " + deviceNum)
                         Button(action: {showScanView = true}, label: {
                             Image(systemName: "qrcode.viewfinder")
@@ -51,8 +64,9 @@ struct addNewPaperView: View{
                 }.padding().navigationTitle("Please fill the blank")
             }
             Button(action: {
-                    tryToAddList()
-                    message = "Added to List"
+                //tryToAddList()
+                parameters.paper = Paper(groupNum: groupNum, paperNum: paperNum, startDate: startDate, operatorName: operatorName)
+                message = "Added!"
             }, label: {
                 Text("Add New Paper").bold().frame(width: 250, height: 50, alignment: .center)
                     .background(isAdded || (!(!groupNum.trimmingCharacters(in: .whitespaces).isEmpty && !paperNum.trimmingCharacters(in: .whitespaces).isEmpty) || (operatorName.trimmingCharacters(in: .whitespaces).isEmpty)) ? Color.gray : .green).cornerRadius(8).foregroundColor(.white)
@@ -60,15 +74,15 @@ struct addNewPaperView: View{
             Text(message).font(.headline)
         }
     }
-    
-    
-    func tryToAddList() {
-        guard !groupNum.trimmingCharacters(in: .whitespaces).isEmpty else{return}
-        guard !paperNum.trimmingCharacters(in: .whitespaces).isEmpty else{return}
-        guard !operatorName.trimmingCharacters(in: .whitespaces).isEmpty else{return}
-        let newPaper =  Paper(groupNum: groupNum, paperNum: paperNum, startDate: startDate, operatorName: operatorName, Carriages: nil, isSafed: false)
-        parameters.papers.append(newPaper)
-        print("Success Add New Paper: \(newPaper)")
-        isAdded = true
-    }
 }
+
+//    func tryToAddList() {
+//        guard !groupNum.trimmingCharacters(in: .whitespaces).isEmpty else{return}
+//        guard !paperNum.trimmingCharacters(in: .whitespaces).isEmpty else{return}
+//        guard !operatorName.trimmingCharacters(in: .whitespaces).isEmpty else{return}
+//        let newPaper =  Paper(groupNum: groupNum, paperNum: paperNum, startDate: startDate, operatorName: operatorName, Carriages: nil, isSafed: false)
+//        parameters.papers.append(newPaper)
+//        print("Success Add New Paper: \(newPaper)")
+//        isAdded = true
+//    }
+//}

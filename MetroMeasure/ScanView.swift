@@ -9,7 +9,9 @@ import SwiftUI
 import CodeScanner
 
 struct ScanView: View{
-    
+
+    @EnvironmentObject var parameters: AppParameters
+
     @State var Result: String = "Scan the QRCode"
     @State var isScanWorked = false
     @Binding var isScanned: Bool
@@ -47,6 +49,7 @@ struct ScanView: View{
             print(details)
             carriageNum = details[0]
             deviceNum = details[1]
+            parameters.carriage = Carriage(carriageNum: carriageNum, deviceNum: deviceNum)
             print("Success with \(data)")
         case .failure(let error):
             print("Scanning failed \(error)")

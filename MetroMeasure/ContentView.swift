@@ -21,26 +21,27 @@ struct ContentView: View {
                     .aspectRatio(contentMode: .fit)
                     .frame(width: 200, height: 200, alignment: .center)
                     .padding()
-//
-//                NavigationLink(
-//                    destination: MeasureView(showScanView: <#T##Binding<Bool>#>, carriageNum: <#T##Binding<String>#>, deviceNum: <#T##Binding<String>#>, isScanned: <#T##Bool#>, isFinished: <#T##Bool#>),
-//                    label: {
-//                        Text("Measure")
-//                            .frame(width: 150, height: 90, alignment: .center)
-//                            .background(Color.blue).foregroundColor(.white)
-//                            .cornerRadius(8)
-//                    }).padding()
-//
+
                 NavigationLink(
-                    destination: ListView(),
+                    destination: addNewPaperView(),
                     label: {
-                        Text("History")
-                            .frame(width: 150, height: 90, alignment: .center)
+                        Text("Measure")
+                            .frame(width: 150, height: 90, alignment: .center).font(.title3)
                             .background(Color.blue).foregroundColor(.white)
                             .cornerRadius(8)
                     }).padding()
+
+//                NavigationLink(
+//                    destination: ListView(),
+//                    label: {
+//                        Text("History")
+//                            .frame(width: 150, height: 90, alignment: .center).font(.title3)
+//                            .background(Color.blue).foregroundColor(.white)
+//                            .cornerRadius(8)
+//                    }).padding()
                 
             }.navigationBarBackButtonHidden(true)
+//                .navigationBarHidden(true)
         }
         
     }
