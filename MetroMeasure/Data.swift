@@ -7,6 +7,28 @@
 
 import Foundation
 
+struct Histories: Decodable{
+    
+    var rows: [row]
+}
+
+struct row: Decodable{
+
+    let paperNum: String
+    let startDate: String
+    let operatorName: String
+    //厚度
+    let thicknessIsQualified: Bool
+    //更換片數
+    let changeNum: Int
+    //調整前高度
+    let heightBefore: Float
+    //調整後高度
+    let heightAfter: Float
+
+}
+
+
 struct Papers: Codable{
     var items: [Paper]
 }
@@ -27,7 +49,6 @@ struct Paper: Codable, Identifiable{
     
 
 }
-
 
 struct Carriage: Codable, Identifiable{
     var id = UUID()

@@ -16,6 +16,7 @@ struct MeasureView: View {
     @Binding var showScanView: Bool
     @Binding var carriageNum: String
     @Binding var deviceNum: String
+    @Binding var safeNum: Int
     
     @State var isScanned = false
     @State var isThicknessFinished = false
@@ -39,7 +40,7 @@ struct MeasureView: View {
                 }
                 else{
                     if isFinished{
-                        ResultView(isFinished: $isFinished, showScanView: $showScanView, isHeightPassed: $isHeightPassed, carriage: Carriage(carriageNum: carriageNum, deviceNum: deviceNum))
+                        ResultView(isFinished: $isFinished, showScanView: $showScanView, isHeightPassed: $isHeightPassed, safeNum: $safeNum, carriage: Carriage(carriageNum: carriageNum, deviceNum: deviceNum))
                     }
                     
                     else{
@@ -126,6 +127,7 @@ struct ResultView: View {
     @Binding var isFinished: Bool
     @Binding var showScanView: Bool
     @Binding var isHeightPassed: Bool?
+    @Binding var safeNum: Int
     
     var carriage: Carriage
 
@@ -141,7 +143,7 @@ struct ResultView: View {
             {Image(systemName: "arrow.counterclockwise").foregroundColor(.white)
                 .frame(width: 60, height: 60)
                 .font(.title)
-                .background(Color.blue)
+                .background(isHeightPassed! ? Color.gray : Color.blue)
                 .opacity(0.85)
                 .cornerRadius(30)
                 .padding(20)
@@ -153,18 +155,21 @@ struct ResultView: View {
                 .foregroundColor(.white)
                 .padding(20)
             
-            //Return to Main View
+            //Return to AddNewPaperView
             Button(action: {
+                print("safeNum: \(safeNum)")
                 showScanView = false
                 arViewContainer.arView.resetAllPoint()
                 parameters.measuredHeightAfter = (parameters.measuredHeight - parameters.measuredRailHeight)*100
                 safeDeviceRecord()
                 resetDeviceParameter()
+                safeNum+=1
+                print("safeNum: \(safeNum)")
             })
             {Image(systemName: "paperplane").foregroundColor(.white)
                 .frame(width: 60, height: 60)
                 .font(.title)
-                .background(Color.blue)
+                .background(!(isHeightPassed!) ? Color.gray : Color.blue)
                 .opacity(0.85)
                 .cornerRadius(30)
                 .padding(20)

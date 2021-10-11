@@ -10,10 +10,10 @@
 //
 //
 //struct ListView: View {
-//    
+//
 //    @EnvironmentObject var parameters: AppParameters
 //    @State var refresh = false
-//    
+//
 //    var body: some View {
 //        VStack(alignment: HorizontalAlignment.center, spacing: 5)
 //        {

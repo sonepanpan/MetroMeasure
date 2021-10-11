@@ -29,7 +29,7 @@
 //                icon: { Image(systemName: "person.fill")}
 //            ).cornerRadius(/*@START_MENU_TOKEN@*/3.0/*@END_MENU_TOKEN@*/).frame(width: 250, height: 50, alignment: .leading).foregroundColor(Color.black)
 //
-//            if paper.Carriages != nil{
+////            if paper.Carriages != nil{
 //                ForEach(paper.Carriages!, id: \.id){ Carriage in
 //                    NavigationLink(
 //                        destination: carriageDetailView(Carriage: Carriage),

@@ -89,7 +89,7 @@ class ARViewFunctions: ARView{
                     if result.first != nil{
                         //正方形射線範圍顯示
 //                        addDot(position: result.first!.worldTransform.Position(), name: "point_\(delta_x)_\(delta_y)")
-                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
+//                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
                         y_List.append(result.first!.worldTransform.Position().y)
                     }
                 }
