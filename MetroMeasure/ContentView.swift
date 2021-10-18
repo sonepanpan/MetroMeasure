@@ -10,35 +10,40 @@ import CodeScanner
 
 struct ContentView: View {
     
+    @ObservedObject var monitor = NetworkMonitor()
     @EnvironmentObject var parameters: AppParameters
     @State var isFinished: Bool = false
     
     var body: some View {
         NavigationView{
             VStack{
-                Image(systemName: "house")
+                Image(systemName: monitor.isConnected ? "wifi" : "wifi.slash")
                     .resizable()
                     .aspectRatio(contentMode: .fit)
-                    .frame(width: 200, height: 200, alignment: .center)
+                    .frame(width: 100, height: 100, alignment: .center)
                     .padding()
+                Text(monitor.isConnected ? "Network Connected!" : "Please connect Network first")
 
+                
+                
                 NavigationLink(
                     destination: addNewPaperView(),
                     label: {
                         Text("Measure")
                             .frame(width: 150, height: 90, alignment: .center).font(.title3)
-                            .background(Color.blue).foregroundColor(.white)
+                            .background(monitor.isConnected ? Color.blue : Color.gray).foregroundColor(.white)
                             .cornerRadius(8)
-                    }).padding()
+                    }).padding().disabled(!monitor.isConnected)
+                    
 
                 NavigationLink(
                     destination: SearchHistoryView(),
                     label: {
                         Text("Search")
                             .frame(width: 150, height: 90, alignment: .center).font(.title3)
-                            .background(Color.blue).foregroundColor(.white)
+                            .background(monitor.isConnected ? Color.blue : Color.gray).foregroundColor(.white)
                             .cornerRadius(8)
-                    }).padding()
+                    }).padding().disabled(!monitor.isConnected)
 
                 
 //                NavigationLink(
@@ -50,7 +55,9 @@ struct ContentView: View {
 //                            .cornerRadius(8)
 //                    }).padding()
                 
-            }.navigationBarBackButtonHidden(true)
+            }
+//            ÷.navigationBarBackButtonHidden(true)
+                .navigationBarTitle("Home")
 //                .navigationBarHidden(true)
         }
         

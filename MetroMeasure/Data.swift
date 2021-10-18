@@ -20,7 +20,7 @@ struct row: Decodable{
     //厚度
     let thicknessIsQualified: Bool
     //更換片數
-    let changeNum: Int
+    let changeNum: String
     //調整前高度
     let heightBefore: Float
     //調整後高度

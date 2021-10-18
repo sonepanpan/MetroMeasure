@@ -23,6 +23,7 @@
 		8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5526E0CA3D009AB686 /* Measure.swift */; };
 		8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5726E0CA93009AB686 /* Parameters.swift */; };
 		8FA6D8142711BAE8000CFE5E /* APIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA6D8132711BAE8000CFE5E /* APIFunctions.swift */; };
+		8FC3C836271816F400392B3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3C835271816F400392B3D /* NetworkMonitor.swift */; };
 		8FDEF0FA26E6683B00D8C7D2 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8FDEF0F926E6683B00D8C7D2 /* CodeScanner */; };
 		8FE3146C2704CC1900FEAFEF /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = 8FE3146B2704CC1900FEAFEF /* FocusEntity */; };
 /* End PBXBuildFile section */
@@ -46,6 +47,7 @@
 		8F9AFD5526E0CA3D009AB686 /* Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
 		8F9AFD5726E0CA93009AB686 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
 		8FA6D8132711BAE8000CFE5E /* APIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFunctions.swift; sourceTree = "<group>"; };
+		8FC3C835271816F400392B3D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -99,6 +101,7 @@
 				8F9AFD5726E0CA93009AB686 /* Parameters.swift */,
 				8FA6D8132711BAE8000CFE5E /* APIFunctions.swift */,
 				8F7D625E271336270049F80A /* SearchView.swift */,
+				8FC3C835271816F400392B3D /* NetworkMonitor.swift */,
 				8F7D625D2713339E0049F80A /* Measure */,
 				8F933F8626E9040200232BE1 /* ListView.swift */,
 				8F57890126F0D53D00C7AE49 /* paperDetailView.swift */,
@@ -201,6 +204,7 @@
 				8F9AFD5426E0B7D1009AB686 /* ARViewCoordinator.swift in Sources */,
 				8F9AFD4526E0B693009AB686 /* ContentView.swift in Sources */,
 				8F9AFD4326E0B693009AB686 /* MetroMeasureApp.swift in Sources */,
+				8FC3C836271816F400392B3D /* NetworkMonitor.swift in Sources */,
 				8F9AFD5226E0B733009AB686 /* ARViewFunctions.swift in Sources */,
 				8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */,
 				8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */,
