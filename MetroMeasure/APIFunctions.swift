@@ -6,7 +6,6 @@
 //
 //
 import Foundation
-import SwiftUI
 
 class MetroDataController {
     func GetMetroData(groupNum: String, carriageNum: String, deviceNum: String, completion: @escaping (Histories) -> Void) {

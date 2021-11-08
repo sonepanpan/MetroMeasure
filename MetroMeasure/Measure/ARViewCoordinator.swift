@@ -14,6 +14,7 @@ import FocusEntity
 
 //ARView in global space
 let arViewContainer = ARViewContainer()
+//var arViewContainer : ARViewContainer? = nil
 
 struct ARViewContainer: UIViewRepresentable {
     
@@ -23,11 +24,13 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<ARViewContainer>) -> ARViewFunctions {
         
 //        DEBUG
-//        arViewContainer.arView.debugOptions.insert(.showSceneUnderstanding) //LiDAR mesh reconstruction
-//        arViewContainer.arView.debugOptions.insert(.showPhysics)
-//        arViewContainer.arView.debugOptions.insert(.showStatistics)
-//        arViewContainer.arView.debugOptions.insert(.showFeaturePoints)
+//        arView.debugOptions.insert(.showSceneUnderstanding) //LiDAR mesh reconstruction
+//        arView.debugOptions.insert(.showPhysics)
+//        arView.debugOptions.insert(.showStatistics)
+        arView.debugOptions.insert(.showFeaturePoints)
         
+        
+        //?
         arView.setMasterAnchor()
         
         return arView

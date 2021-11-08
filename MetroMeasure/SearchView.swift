@@ -17,7 +17,7 @@ struct SearchHistoryView: View {
     @State var histories: Histories?
     @State var hint: String = "Press Button to Search"
     
-    let groupNumOptions: [String] = ["102", "103", "104", "105"]
+    let groupNumOptions: [String] = ["Q", "102", "103", "104", "105"]
     let carriageNumOptions: [String] = ["happy","1102", "1202", "1302", "1402"]
     let deviceNumOptions: [String] = ["L1","L2", "R1", "R2"]
     

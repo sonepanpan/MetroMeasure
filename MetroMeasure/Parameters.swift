@@ -13,12 +13,12 @@ class AppParameters: ObservableObject{
 //    @Published var carriage: Carriage
 
     
-    @Published var measuredHeight: Float = 0
+    @Published var measuredDeviceHeight: Float = 0
     @Published var measuredRailHeight: Float = 0
     
     @Published var carriageNum: String = ""
     @Published var deviceNum: String = ""
-    @Published var measuredThickness: Bool = false
+    @Published var measuredThickness: Bool = true
     @Published var measuredChangeNum: Int = 0
     @Published var measuredHeightBefore: Float = -1
     @Published var measuredHeightAfter: Float = -1

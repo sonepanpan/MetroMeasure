@@ -22,10 +22,14 @@
 		8F9AFD5426E0B7D1009AB686 /* ARViewCoordinator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */; };
 		8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5526E0CA3D009AB686 /* Measure.swift */; };
 		8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9AFD5726E0CA93009AB686 /* Parameters.swift */; };
+		8F9F76762730439800D55F24 /* Ransac.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9F76752730439800D55F24 /* Ransac.swift */; };
+		8F9F7678273164FB00D55F24 /* PlaneDetection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F9F7677273164FB00D55F24 /* PlaneDetection.swift */; };
 		8FA6D8142711BAE8000CFE5E /* APIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA6D8132711BAE8000CFE5E /* APIFunctions.swift */; };
 		8FC3C836271816F400392B3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3C835271816F400392B3D /* NetworkMonitor.swift */; };
 		8FDEF0FA26E6683B00D8C7D2 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8FDEF0F926E6683B00D8C7D2 /* CodeScanner */; };
 		8FE3146C2704CC1900FEAFEF /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = 8FE3146B2704CC1900FEAFEF /* FocusEntity */; };
+		8FF32A8727351FB5004291C2 /* thicknessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32A8627351FB5004291C2 /* thicknessView.swift */; };
+		8FF32A8927352119004291C2 /* MeasureDeviceHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32A8827352119004291C2 /* MeasureDeviceHeight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -46,8 +50,12 @@
 		8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARViewCoordinator.swift; sourceTree = "<group>"; };
 		8F9AFD5526E0CA3D009AB686 /* Measure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Measure.swift; sourceTree = "<group>"; };
 		8F9AFD5726E0CA93009AB686 /* Parameters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parameters.swift; sourceTree = "<group>"; };
+		8F9F76752730439800D55F24 /* Ransac.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Ransac.swift; sourceTree = "<group>"; };
+		8F9F7677273164FB00D55F24 /* PlaneDetection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaneDetection.swift; sourceTree = "<group>"; };
 		8FA6D8132711BAE8000CFE5E /* APIFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIFunctions.swift; sourceTree = "<group>"; };
 		8FC3C835271816F400392B3D /* NetworkMonitor.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkMonitor.swift; sourceTree = "<group>"; };
+		8FF32A8627351FB5004291C2 /* thicknessView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = thicknessView.swift; sourceTree = "<group>"; };
+		8FF32A8827352119004291C2 /* MeasureDeviceHeight.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MeasureDeviceHeight.swift; sourceTree = "<group>"; tabWidth = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +76,8 @@
 			children = (
 				8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */,
 				8F9AFD5526E0CA3D009AB686 /* Measure.swift */,
+				8FF32A8827352119004291C2 /* MeasureDeviceHeight.swift */,
+				8FF32A8627351FB5004291C2 /* thicknessView.swift */,
 				8F89679E2704E050003E179B /* MeasureRailHeight.swift */,
 				8F933F8226E8F76A00232BE1 /* ScanView.swift */,
 				8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */,
@@ -102,12 +112,14 @@
 				8FA6D8132711BAE8000CFE5E /* APIFunctions.swift */,
 				8F7D625E271336270049F80A /* SearchView.swift */,
 				8FC3C835271816F400392B3D /* NetworkMonitor.swift */,
+				8F9F76752730439800D55F24 /* Ransac.swift */,
 				8F7D625D2713339E0049F80A /* Measure */,
 				8F933F8626E9040200232BE1 /* ListView.swift */,
 				8F57890126F0D53D00C7AE49 /* paperDetailView.swift */,
 				8F9AFD4626E0B696009AB686 /* Assets.xcassets */,
 				8F9AFD4B26E0B696009AB686 /* Info.plist */,
 				8F9AFD4826E0B696009AB686 /* Preview Content */,
+				8F9F7677273164FB00D55F24 /* PlaneDetection.swift */,
 			);
 			path = MetroMeasure;
 			sourceTree = "<group>";
@@ -198,6 +210,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8FA6D8142711BAE8000CFE5E /* APIFunctions.swift in Sources */,
+				8FF32A8927352119004291C2 /* MeasureDeviceHeight.swift in Sources */,
 				8F57890026F0D50900C7AE49 /* addNewPaperView.swift in Sources */,
 				8F57890226F0D53D00C7AE49 /* paperDetailView.swift in Sources */,
 				8F933F8326E8F76A00232BE1 /* ScanView.swift in Sources */,
@@ -205,6 +218,8 @@
 				8F9AFD4526E0B693009AB686 /* ContentView.swift in Sources */,
 				8F9AFD4326E0B693009AB686 /* MetroMeasureApp.swift in Sources */,
 				8FC3C836271816F400392B3D /* NetworkMonitor.swift in Sources */,
+				8F9F7678273164FB00D55F24 /* PlaneDetection.swift in Sources */,
+				8FF32A8727351FB5004291C2 /* thicknessView.swift in Sources */,
 				8F9AFD5226E0B733009AB686 /* ARViewFunctions.swift in Sources */,
 				8F9AFD5626E0CA3D009AB686 /* Measure.swift in Sources */,
 				8F9AFD5826E0CA93009AB686 /* Parameters.swift in Sources */,
@@ -212,6 +227,7 @@
 				8F89679F2704E050003E179B /* MeasureRailHeight.swift in Sources */,
 				8F933F8926E9087300232BE1 /* Data.swift in Sources */,
 				8F933F8726E9040200232BE1 /* ListView.swift in Sources */,
+				8F9F76762730439800D55F24 /* Ransac.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -14,7 +14,8 @@ struct ScanView: View{
 
     @State var Result: String = "Scan the QRCode"
     @State var isScanWorked = false
-    @Binding var isScanned: Bool
+//    @Binding var isScanned: Bool
+    @Binding var step: MeasureView.stage
     @Binding var carriageNum: String
     @Binding var deviceNum: String
 
@@ -25,7 +26,7 @@ struct ScanView: View{
             CodeScannerView(codeTypes: [.qr], simulatedData: "Some simulated data", completion: self.handleScan)
             VStack{
                 Text(Result).font(.title3).frame(alignment: .center)//.foregroundColor(.black).background(Color.blue).position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*3)
-                Button("COMFIRM"){isScanned = true}.frame(width: 130, height: 60, alignment: .center)
+                Button("COMFIRM"){step = MeasureView.stage.measure}.frame(width: 130, height: 60, alignment: .center)
                     .font(.title2)
                     .foregroundColor(.white)
                     .background(isScanWorked ? Color.blue : Color.gray)

@@ -45,14 +45,16 @@ struct addNewPaperView: View{
                         .opacity(isAdded ? 0.3 : 1)
                     
                     
-                    HStack{
-                        Text("鐵軌高度: ")
-                        Text(String(format: "%.2f cm", parameters.measuredRailHeight*100))
-                        Button(action: {showRailHeightMeasured = true}, label: {
-                            Image(systemName: "ruler")
-                        }).frame(alignment: .center).sheet(isPresented: $showRailHeightMeasured, content: {MeasureRailHeight(showRailHeightMeasured: $showRailHeightMeasured)}
-                        ).disabled(!isAdded)
-                    }.opacity(isAdded ? 1 : 0.3)
+//                    HStack{
+//                        Text("鐵軌高度: ")
+//                        Text(String(format: "%.2f cm", parameters.measuredRailHeight*100))
+//                        Button(action: {showRailHeightMeasured = true}, label: {
+//                            Image(systemName: "ruler")
+//                        }).frame(alignment: .center).sheet(isPresented: $showRailHeightMeasured, content: {/*MeasureRailHeight(showRailHeightMeasured: $showRailHeightMeasured)*/}
+//                        ).disabled(!isAdded)
+//                    }.opacity(isAdded ? 1 : 0.3)
+                    
+                    
                     HStack{
                         Text("集電靴: ")
                         Text(carriageNum + "  " + deviceNum)
@@ -68,6 +70,8 @@ struct addNewPaperView: View{
 
             }
             
+            
+            //
             Text(message).font(.headline)
             
             Button(action: {
