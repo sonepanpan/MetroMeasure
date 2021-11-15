@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		8F481B1827415C010067373A /* FeaturePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F481B1727415C010067373A /* FeaturePoints.swift */; };
 		8F57890026F0D50900C7AE49 /* addNewPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */; };
 		8F57890226F0D53D00C7AE49 /* paperDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57890126F0D53D00C7AE49 /* paperDetailView.swift */; };
 		8F7D625F271336270049F80A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D625E271336270049F80A /* SearchView.swift */; };
@@ -33,6 +34,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		8F481B1727415C010067373A /* FeaturePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturePoints.swift; sourceTree = "<group>"; };
 		8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addNewPaperView.swift; sourceTree = "<group>"; };
 		8F57890126F0D53D00C7AE49 /* paperDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paperDetailView.swift; sourceTree = "<group>"; };
 		8F7D625E271336270049F80A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -71,6 +73,13 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8F481B19274278060067373A /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8F7D625D2713339E0049F80A /* Measure */ = {
 			isa = PBXGroup;
 			children = (
@@ -82,6 +91,7 @@
 				8F933F8226E8F76A00232BE1 /* ScanView.swift */,
 				8F9AFD5326E0B7D1009AB686 /* ARViewCoordinator.swift */,
 				8F9AFD5126E0B733009AB686 /* ARViewFunctions.swift */,
+				8F481B1727415C010067373A /* FeaturePoints.swift */,
 			);
 			path = Measure;
 			sourceTree = "<group>";
@@ -91,6 +101,7 @@
 			children = (
 				8F9AFD4126E0B693009AB686 /* MetroMeasure */,
 				8F9AFD4026E0B693009AB686 /* Products */,
+				8F481B19274278060067373A /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -228,6 +239,7 @@
 				8F933F8926E9087300232BE1 /* Data.swift in Sources */,
 				8F933F8726E9040200232BE1 /* ListView.swift in Sources */,
 				8F9F76762730439800D55F24 /* Ransac.swift in Sources */,
+				8F481B1827415C010067373A /* FeaturePoints.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -368,7 +380,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ieem107034012.MetroMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -390,7 +402,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = ieem107034012.MetroMeasure;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};

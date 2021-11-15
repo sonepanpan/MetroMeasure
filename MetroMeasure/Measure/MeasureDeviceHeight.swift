@@ -109,7 +109,9 @@ struct DeviceControlView: View
     
     func castRay()
     {
-        isHit = arViewContainer.arView.castRayToDevice()
+//        isHit = arViewContainer.arView.castRayToDevice()
+        isHit = arViewContainer.arView.FeaturePointToDevice()
+
         if isHit {
             print("DEBUG: Success to hit.")
             haptic()

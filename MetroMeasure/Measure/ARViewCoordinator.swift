@@ -27,8 +27,7 @@ struct ARViewContainer: UIViewRepresentable {
 //        arView.debugOptions.insert(.showSceneUnderstanding) //LiDAR mesh reconstruction
 //        arView.debugOptions.insert(.showPhysics)
 //        arView.debugOptions.insert(.showStatistics)
-        arView.debugOptions.insert(.showFeaturePoints)
-        
+//        arView.debugOptions.insert(.showFeaturePoints)
         
         //?
         arView.setMasterAnchor()
@@ -37,7 +36,6 @@ struct ARViewContainer: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: ARViewFunctions, context: UIViewRepresentableContext<ARViewContainer>) {
-            
             
         }
     

@@ -10,9 +10,9 @@ import SwiftUI
 struct addNewPaperView: View{
     
     @EnvironmentObject var parameters: AppParameters
-    @State var groupNum = ""
-    @State var paperNum = ""
-    @State var operatorName = ""
+    @State var groupNum = "Q"
+    @State var paperNum = "Q"
+    @State var operatorName = "Q"
     @State var startDate = Date.init()
     @State var carriageNum = ""
     @State var deviceNum = ""
