@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		8F481B1827415C010067373A /* FeaturePoints.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F481B1727415C010067373A /* FeaturePoints.swift */; };
+		8F481B1B27427E640067373A /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = 8F481B1A27427E640067373A /* FocusEntity */; };
 		8F57890026F0D50900C7AE49 /* addNewPaperView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */; };
 		8F57890226F0D53D00C7AE49 /* paperDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F57890126F0D53D00C7AE49 /* paperDetailView.swift */; };
 		8F7D625F271336270049F80A /* SearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8F7D625E271336270049F80A /* SearchView.swift */; };
@@ -28,13 +29,13 @@
 		8FA6D8142711BAE8000CFE5E /* APIFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FA6D8132711BAE8000CFE5E /* APIFunctions.swift */; };
 		8FC3C836271816F400392B3D /* NetworkMonitor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FC3C835271816F400392B3D /* NetworkMonitor.swift */; };
 		8FDEF0FA26E6683B00D8C7D2 /* CodeScanner in Frameworks */ = {isa = PBXBuildFile; productRef = 8FDEF0F926E6683B00D8C7D2 /* CodeScanner */; };
-		8FE3146C2704CC1900FEAFEF /* FocusEntity in Frameworks */ = {isa = PBXBuildFile; productRef = 8FE3146B2704CC1900FEAFEF /* FocusEntity */; };
 		8FF32A8727351FB5004291C2 /* thicknessView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32A8627351FB5004291C2 /* thicknessView.swift */; };
 		8FF32A8927352119004291C2 /* MeasureDeviceHeight.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8FF32A8827352119004291C2 /* MeasureDeviceHeight.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		8F481B1727415C010067373A /* FeaturePoints.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeaturePoints.swift; sourceTree = "<group>"; };
+		8F481B1C27427F790067373A /* AppTrackingTransparency.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppTrackingTransparency.framework; path = System/Library/Frameworks/AppTrackingTransparency.framework; sourceTree = SDKROOT; };
 		8F5788FF26F0D50900C7AE49 /* addNewPaperView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = addNewPaperView.swift; sourceTree = "<group>"; };
 		8F57890126F0D53D00C7AE49 /* paperDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = paperDetailView.swift; sourceTree = "<group>"; };
 		8F7D625E271336270049F80A /* SearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchView.swift; sourceTree = "<group>"; };
@@ -65,7 +66,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				8FE3146C2704CC1900FEAFEF /* FocusEntity in Frameworks */,
+				8F481B1B27427E640067373A /* FocusEntity in Frameworks */,
 				8FDEF0FA26E6683B00D8C7D2 /* CodeScanner in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -76,6 +77,7 @@
 		8F481B19274278060067373A /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8F481B1C27427F790067373A /* AppTrackingTransparency.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -161,7 +163,7 @@
 			name = MetroMeasure;
 			packageProductDependencies = (
 				8FDEF0F926E6683B00D8C7D2 /* CodeScanner */,
-				8FE3146B2704CC1900FEAFEF /* FocusEntity */,
+				8F481B1A27427E640067373A /* FocusEntity */,
 			);
 			productName = MetroMeasure;
 			productReference = 8F9AFD3F26E0B693009AB686 /* MetroMeasure.app */;
@@ -449,15 +451,15 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		8F481B1A27427E640067373A /* FocusEntity */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 8FE3146A2704CC1900FEAFEF /* XCRemoteSwiftPackageReference "FocusEntity" */;
+			productName = FocusEntity;
+		};
 		8FDEF0F926E6683B00D8C7D2 /* CodeScanner */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 8FDEF0F826E6683B00D8C7D2 /* XCRemoteSwiftPackageReference "CodeScanner" */;
 			productName = CodeScanner;
-		};
-		8FE3146B2704CC1900FEAFEF /* FocusEntity */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = 8FE3146A2704CC1900FEAFEF /* XCRemoteSwiftPackageReference "FocusEntity" */;
-			productName = FocusEntity;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

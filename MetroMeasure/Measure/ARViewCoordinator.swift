@@ -24,7 +24,7 @@ struct ARViewContainer: UIViewRepresentable {
     func makeUIView(context: UIViewRepresentableContext<ARViewContainer>) -> ARViewFunctions {
         
 //        DEBUG
-//        arView.debugOptions.insert(.showSceneUnderstanding) //LiDAR mesh reconstruction
+        arView.debugOptions.insert(.showSceneUnderstanding) //LiDAR mesh reconstruction
 //        arView.debugOptions.insert(.showPhysics)
 //        arView.debugOptions.insert(.showStatistics)
 //        arView.debugOptions.insert(.showFeaturePoints)

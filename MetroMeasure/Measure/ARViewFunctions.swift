@@ -197,7 +197,7 @@ class ARViewFunctions: ARView{
     }
     
     func FeaturePointToDevice() -> Bool {
-//        var y_List: [Float] = []
+        var y_List: [Float] = []
 //        var y_Device_List: [Float] = []
         let location = CGPoint(x: bounds.midX, y: bounds.midY)
         //let location = CGPoint(x: self.view.frame.height / 2, y:self.view.frame.height / 2)
@@ -215,7 +215,7 @@ class ARViewFunctions: ARView{
             self.scene.addAnchor(ARAnchorEntity)
             ARAnchorEntity.addChild(masterAnchor1)
             self.session.add(anchor: anchor)
-            
+
             guard let frame = self.session.currentFrame else{ return false }
             guard let pointCloud = frame.rawFeaturePoints?.points else{ return false }
             
@@ -223,44 +223,31 @@ class ARViewFunctions: ARView{
             var pointCloud_after: [SIMD3<Float>] = []
             var i: Int = 0
             for point in pointCloud{
-                if target.y*100 - Float(0.01) < point.y*100 && point.y*100 < target.y*100 + Float(0.01){
+                if (target.y*100 - Float(1) < point.y*100 && point.y*100 < target.y*100 + Float(1)) &&
+                    (target.z*100 - Float(0.5) < point.z*100 && point.z*100 < target.z*100 + Float(0.5)) &&
+                    (target.x*100 - Float(10) < point.x*100 && point.x*100 < target.x*100 + Float(10))
+                {
                     pointCloud_after.append(point)
+                    y_List.append(point.y)
                     addCheckDotDevice(position: point, name: "pointDevice_check\(i)", anchor: anchor)
                     i+=1
+                    print(point)
                 }
             }
             print("feature point: \(pointCloud_after.count)")
-            
-//            for delta_x in -1...1
-//            {
-//                for delta_y in -20...20
-//                {
-//                    let point = CGPoint(x: bounds.midX + CGFloat(Double(delta_x)*10), y: bounds.midY + CGFloat(Double(delta_y)*2))
-//                    let result = self.raycast(from: point, allowing: .estimatedPlane, alignment: .any)
-//                    if result.first != nil{
-//                        print("point_Device_\(i): \(result.first!.worldTransform.Position())")
-//                        i+=1
-//                        y_Device_List.append(result.first!.worldTransform.Position().y)
-//                    }
-//                }
-//                let temp_y = findMax(array: y_Device_List)
-//                if temp_y != 0.0{
-//                    y_List.append(temp_y)
-//                }
-//                else{
-//                    y_List.append(target.y)
-//                }
-//            }
-            
-            pointDevice = target
-            addDotDevice(position: pointDevice!, name: "pointDevice", anchor: anchor)
+            if pointCloud_after.count >= 3{
+                pointDevice = target
+                addDotDevice(position: pointDevice!, name: "pointDevice", anchor: anchor)
+                average_after_Device=average(array: y_List)
+                pointDevice!.y = average_after_Device
+//                addCheckDotDevice(position: pointDevice!, name: "pointDevice_Check", anchor: anchor)
 
-//            average_after_Device = average(array: y_List)
-            pointDevice!.y = average_after_Device
-            addCheckDotDevice(position: pointDevice!, name: "pointDevice_Check", anchor: anchor)
-
-            print("\(average_after_Device)")
-            return true
+                print("\(average_after_Device)")
+                return true
+            }
+            else{
+                return false
+            }            
         }
         print("DEBUG: Fall to hit")
         return false
@@ -434,7 +421,7 @@ class ARViewFunctions: ARView{
     
     func addDotDevice(position: SIMD3<Float>, name: String, anchor: ARAnchor){
         
-        let dotMesh : MeshResource = .generateSphere(radius: 0.001)
+        let dotMesh : MeshResource = .generateSphere(radius: 0.004)
         let material = UnlitMaterial(color: UIColor.init(red: 77/255, green: 132/255, blue: 160/255, alpha: 0.7))
         let dot = ModelEntity.init(mesh: dotMesh, materials: [material])
         dot.name = name
