@@ -20,6 +20,7 @@ struct MeasureDeviceHeight: View {
             HStack{
                 Image(systemName: "equal")
                 Image(systemName: "equal")
+                Image(systemName: "plus")
                 Image(systemName: "equal")
                 Image(systemName: "equal")
             }.foregroundColor(.yellow)
@@ -39,11 +40,17 @@ struct DeviceControlView: View
     @State var Hint: String = "Cast Ray at Device"
     @Binding var isDeviceFinished: Bool
     
-    @State private var flashlight = true
+    @State private var flashlight = false
     
-    //    @Binding var IsPlacementEnabled: Bool
-    //    @Binding var SelectedModel: Model?
-    //    @Binding var ModelConfirmedForPlacement: Model?
+    @State var stage = step.castRay
+    @State var FeatureFinish: Bool = false
+
+    enum step {
+        case castRay
+        case featurePoint
+    }
+    
+    
     var body: some View
     {
         VStack{
@@ -58,14 +65,61 @@ struct DeviceControlView: View
             Text(Hint).foregroundColor(.white).font(.largeTitle)
             HStack
             {
-                if isHit
-                {
-                    //Cancel Button
+                switch stage{
+                case .castRay:
+                    if isHit{
+                        //Minus Button
+                        Button(action:
+                                {
+                            print("DEBUG: Cancel chosen device point.")
+                            arViewContainer.arView.resetAPoint(name: "Device")
+                            Hint = "Cast Ray at Device"
+                            isHit = false
+                        })
+                        {Image(systemName: "xmark").foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .font(.title)
+                                .background(Color.red)
+                                .opacity(0.85)
+                                .cornerRadius(30)
+                                .padding(20)
+                        }
+                        
+                        //Plus Button
+                        Button(action: {
+                            self.stage = step.featurePoint
+                        }
+                        )
+                        {Image(systemName: "checkmark").foregroundColor(.white)
+                                .frame(width: 60, height: 60)
+                                .font(.title)
+                                .background(isHit ? Color.green : Color.gray)
+                                .opacity(0.85)
+                                .cornerRadius(30)
+                                .padding(20)
+                        }.disabled(!isHit)
+                    }
+                    else{
+                        Button(action: castRay)
+                        {Image(systemName: "camera.metering.spot").foregroundColor(.white)
+                                .frame(width: 130, height: 60)
+                                .font(.title)
+                                .background(Color.blue)
+                                .opacity(0.85)
+                                .cornerRadius(10)
+                                .padding(20)
+                        }
+                    }
+                    
+                case .featurePoint:
+                    
+                    //Minus Button
                     Button(action:
                             {
-                        print("DEBUG: Cancel chosen point.")
-                        Hint = arViewContainer.arView.resetAPoint(name: "Device")
-                        isHit = false
+                        print("DEBUG: Cancel chosen feature point.")
+                        arViewContainer.arView.resetAPoint(name: "Device")
+                        arViewContainer.arView.resetAllCheckPoint()
+                        Hint = "Focus Edge & Capture"
                     })
                     {Image(systemName: "xmark").foregroundColor(.white)
                             .frame(width: 60, height: 60)
@@ -76,23 +130,8 @@ struct DeviceControlView: View
                             .padding(20)
                     }
                     
-                    //Confirm Button
-                    Button(action: {
-                        self.safeAndCalculate()
-                        isDeviceFinished=true
-                    }
-                    )
-                    {Image(systemName: "checkmark").foregroundColor(.white)
-                            .frame(width: 60, height: 60)
-                            .font(.title)
-                            .background(Color.green)
-                            .opacity(0.85)
-                            .cornerRadius(30)
-                            .padding(20)
-                    }
-                }
-                else{
-                    Button(action: castRay)
+                    //Feature
+                    Button(action:featurePoint)
                     {Image(systemName: "camera.metering.spot").foregroundColor(.white)
                             .frame(width: 130, height: 60)
                             .font(.title)
@@ -102,7 +141,22 @@ struct DeviceControlView: View
                             .padding(20)
                     }
                     
+                    //Plus Button
+                    Button(action: {
+                        self.safeAndCalculate()
+                        isDeviceFinished=true
+                    }
+                    )
+                    {Image(systemName: "checkmark").foregroundColor(.white)
+                            .frame(width: 60, height: 60)
+                            .font(.title)
+                            .background(FeatureFinish ? Color.green : Color.gray)
+                            .opacity(0.85)
+                            .cornerRadius(30)
+                            .padding(20)
+                    }.disabled(!FeatureFinish)
                 }
+                
             }
         }.position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*7.5)
     }
@@ -110,23 +164,43 @@ struct DeviceControlView: View
     func castRay()
     {
 //        isHit = arViewContainer.arView.castRayToDevice()
-        isHit = arViewContainer.arView.FeaturePointToDevice()
+        let passed = arViewContainer.arView.castRayToDevice()
 
-        if isHit {
+        if passed {
             print("DEBUG: Success to hit.")
             haptic()
             Hint = "Cancel or Continue"
-            // Change View
-            return
         }
         else{
             //isHit == false
             print("DEBUG: Fall to hit.")
             //Not change View
             Hint = "Please Try Again"
-            return
         }
+        isHit = passed
+        return
     }
+    
+    func featurePoint()
+    {
+//        isHit = arViewContainer.arView.castRayToDevice()
+        let passed = arViewContainer.arView.FeaturePointToDevice()
+        
+        if passed {
+            print("DEBUG: Success to hit.")
+            haptic()
+            Hint = "Cancel or Continue"
+            // Change View
+        }
+        else{
+            //isHit == false
+            print("DEBUG: Fall to hit.")
+            //Not change View
+            Hint = "Please Try Again"
+        }
+        self.FeatureFinish = passed
+    }
+    
     
     func safeAndCalculate(){
         parameters.measuredDeviceHeight = arViewContainer.arView.SafeDeviceHeight()

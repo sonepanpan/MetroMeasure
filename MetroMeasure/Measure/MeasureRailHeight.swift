@@ -54,6 +54,7 @@ struct RailResultView: View {
             //Reset Button
             Button(action: {
                 arViewContainer.arView.resetAllPoint()
+                arViewContainer.arView.resetAllCheckPoint()
                 isHeightPassed = false
                 parameters.measuredHeightBefore = (parameters.measuredDeviceHeight - parameters.measuredRailHeight)*100
             })
@@ -77,6 +78,7 @@ struct RailResultView: View {
                 print("safeNum: \(safeNum)")
                 showScanView = false
                 arViewContainer.arView.resetAllPoint()
+                arViewContainer.arView.resetAllCheckPoint()
                 parameters.measuredHeightAfter = (parameters.measuredDeviceHeight - parameters.measuredRailHeight)*100
                 safeDeviceRecord()
                 resetDeviceParameter()
@@ -112,7 +114,6 @@ struct RailResultView: View {
         parameters.measuredChangeNum = 0
         parameters.measuredHeightBefore = -1
         parameters.measuredHeightAfter = -1
-        
         parameters.measuredDeviceHeight = 0.0
         parameters.measuredRailHeight = 0.0
     }
@@ -152,7 +153,8 @@ struct RailControlView: View{
                     Button(action:
                             {
                         print("DEBUG: Cancel chosen point.")
-                        Hint = arViewContainer.arView.resetAPoint(name: "Rail")
+                        arViewContainer.arView.resetAPoint(name: "Rail")
+                        Hint = "Cast Ray at Rail"
                         isHit = false
                     })
                     {Image(systemName: "xmark").foregroundColor(.white)
