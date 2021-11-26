@@ -21,8 +21,11 @@ struct MeasureRailHeight: View {
     
     var body: some View {
         ZStack(alignment: .center){
-            Image(systemName: "minus")
-                .foregroundColor(.yellow)
+            HStack{
+                Image(systemName: "minus")
+                Image(systemName: "minus")
+                Image(systemName: "minus")
+            }.foregroundColor(.yellow)
                 .position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*4.7)
             
             if isFinished{
@@ -199,7 +202,7 @@ struct RailControlView: View{
     
     func castRay()
     {
-        isHit = arViewContainer.arView.castRayToRail()
+        isHit = arViewContainer.arView.castRayToRailThree()
         if isHit {
             print("DEBUG: Success to hit.")
             haptic()

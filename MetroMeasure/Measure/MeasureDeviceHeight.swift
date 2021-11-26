@@ -88,6 +88,7 @@ struct DeviceControlView: View
                         //Plus Button
                         Button(action: {
                             self.stage = step.featurePoint
+                            Hint = "Focus Edge & Capture"
                         }
                         )
                         {Image(systemName: "checkmark").foregroundColor(.white)
@@ -117,7 +118,7 @@ struct DeviceControlView: View
                     Button(action:
                             {
                         print("DEBUG: Cancel chosen feature point.")
-                        arViewContainer.arView.resetAPoint(name: "Device")
+//                        arViewContainer.arView.resetAPoint(name: "Device")
                         arViewContainer.arView.resetAllCheckPoint()
                         Hint = "Focus Edge & Capture"
                     })

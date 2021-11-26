@@ -87,40 +87,38 @@ class ARViewFunctions: ARView{
         let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
         var i: Int = 0
         if let firstResult = result.first{
-            let anchor = ARAnchor(name: "masterAnchor2", transform: firstResult.worldTransform)
-            self.session.add(anchor: anchor)
-            
-            let masterAnchor2 = Entity()
-            masterAnchor2.name = "masterAnchor2"
-            
-            let ARAnchorEntity = AnchorEntity(anchor: anchor)
-            self.scene.addAnchor(ARAnchorEntity)
-            ARAnchorEntity.addChild(masterAnchor2)
+//            let anchor = ARAnchor(name: "masterAnchor2", transform: firstResult.worldTransform)
+//            self.session.add(anchor: anchor)
+//
+//            let masterAnchor2 = Entity()
+//            masterAnchor2.name = "masterAnchor2"
+//
+//            let ARAnchorEntity = AnchorEntity(anchor: anchor)
+//            self.scene.addAnchor(ARAnchorEntity)
+//            ARAnchorEntity.addChild(masterAnchor2)
             
             let target = firstResult.worldTransform.Position()
-            for delta_y in -3...3
-            {
-                for delta_x in -3...3{
-                    let point = CGPoint(x: bounds.midX+CGFloat(Double(delta_x)*2), y: bounds.midY + CGFloat(Double(delta_y)*3))
-                    let result = self.raycast(from: point, allowing: .estimatedPlane, alignment: .any)
-                    if result.first != nil{
-                        //正方形射線範圍顯示
-                        //                        addDot(position: result.first!.worldTransform.Position(), name: "point_\(delta_x)_\(delta_y)")
-//                        addDot(position: result.first!.worldTransform.Position(), name: "point_\(i)")
-                        //                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
-                        print("point_Rail_\(i): \(result.first!.worldTransform.Position())")
-                        i+=1
-                        y_Rail_List.append(result.first!.worldTransform.Position().y)
-                    }
+            for delta_x in -3...3{
+                let point = CGPoint(x: bounds.midX + CGFloat(Double(delta_x)*5), y: bounds.midY)
+                let result = self.raycast(from: point, allowing: .estimatedPlane, alignment: .any)
+                if result.first != nil{
+                    //正方形射線範圍顯示
+                    //                        addDot(position: result.first!.worldTransform.Position(), name: "point_\(delta_x)_\(delta_y)")
+                    addCheckDotRail(position: result.first!.worldTransform.Position(), name: "pointRail_Check\(i)")
+                    //                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
+                    print("point_Rail_\(i): \(result.first!.worldTransform.Position())")
+                    i+=1
+                    y_Rail_List.append(result.first!.worldTransform.Position().y)
                 }
             }
+            
             
             pointRail = target
             addDotRail(position: pointRail!, name: "pointRail")
             print("DEBUG: Rail Point Build")
             average_after_Rail = deleteOutlier(array: y_Rail_List)
             pointRail!.y=average_after_Rail
-            addCheckDotRail(position: pointRail!, name: "pointRail_Check")
+            addFinalDotRail(position: pointRail!, name: "pointRail_Final")
 
             print("\(average_after_Rail)")
             return true
@@ -129,6 +127,65 @@ class ARViewFunctions: ARView{
         print("DEBUG: Fall to hit")
         return false
     }
+    
+    func castRayToRailThree() -> Bool {
+        var y_List: [Float] = []
+        var y_Rail_List: [Float] = []
+        let location = CGPoint(x: bounds.midX, y: bounds.midY)
+        //let location = CGPoint(x: self.view.frame.height / 2, y:self.view.frame.height / 2)
+        let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
+        var i: Int = 0
+        if let firstResult = result.first{
+            let target = firstResult.worldTransform.Position()
+            for delta_x in -1...1
+            {
+                for delta_y in -20...20
+                {
+                    let point = CGPoint(x: bounds.midX + CGFloat(Double(delta_x)*10), y: bounds.midY + CGFloat(Double(delta_y)*2))
+                    let result = self.raycast(from: point, allowing: .estimatedPlane, alignment: .any)
+//                    self.trackedRaycast(from: point, allowing: .estimatedPlane, alignment: .any, updateHandler: { [self] result in
+//                        if result.first != nil{
+//                            self.addDot(position: result.first!.worldTransform.Position(), name: "point_Device_\(i)")
+//
+//                            i+=1
+//                            y_Device_List.append(result.first!.worldTransform.Position().y)
+//                        }
+//
+//                    })
+                    if result.first != nil{
+                        //射線範圍顯示
+                        //                        addDot(position: result.first!.worldTransform.Position(), name: "point_\(delta_x)_\(delta_y)")
+//                        addDotDevice(position: result.first!.worldTransform.Position(), name: "point_Device_\(i)", anchor: anchor)
+                        //                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
+                        print("point_Rail_\(i): \(result.first!.worldTransform.Position())")
+                        i+=1
+                        y_Rail_List.append(result.first!.worldTransform.Position().y)
+                    }
+                }
+                let temp_y = findMax(array: y_Rail_List)
+                if temp_y != 0.0{
+                    y_List.append(temp_y)
+                }
+                else{
+                    y_List.append(target.y)
+                }
+            }
+            
+            pointRail = target
+            addDotRail(position: pointRail!, name: "pointRail")
+
+            
+            average_after_Rail = average(array: y_List)
+            pointRail!.y = average_after_Rail
+            addCheckDotRail(position: pointRail!, name: "pointRail_Check")
+
+            print("\(average_after_Rail)")
+            return true
+        }
+        print("DEBUG: Fall to hit")
+        return false
+    }
+    
     
     func castRayToDeviceThree() -> Bool {
         var y_List: [Float] = []
@@ -204,17 +261,17 @@ class ARViewFunctions: ARView{
         //let location = CGPoint(x: self.view.frame.height / 2, y:self.view.frame.height / 2)
         let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
         if let firstResult = result.first{
-            let anchor = ARAnchor(name: "masterAnchor1", transform: firstResult.worldTransform)
-            self.session.add(anchor: anchor)
-            
-            let masterAnchor1 = Entity()
-            masterAnchor1.name = "masterAnchor1"
-            
-            let ARAnchorEntity = AnchorEntity(anchor: anchor)
-            self.scene.addAnchor(ARAnchorEntity)
-            ARAnchorEntity.addChild(masterAnchor1)
-            
-            self.session.add(anchor: anchor)
+//            let anchor = ARAnchor(name: "masterAnchor1", transform: firstResult.worldTransform)
+//            self.session.add(anchor: anchor)
+//
+//            let masterAnchor1 = Entity()
+//            masterAnchor1.name = "masterAnchor1"
+//
+//            let ARAnchorEntity = AnchorEntity(anchor: anchor)
+//            self.scene.addAnchor(ARAnchorEntity)
+//            ARAnchorEntity.addChild(masterAnchor1)
+//
+//            self.session.add(anchor: anchor)
             let target = firstResult.worldTransform.Position()
             print("!!!!!! \(target)")
             pointDevice = target
@@ -238,8 +295,8 @@ class ARViewFunctions: ARView{
             
 //            var pointCloud_after: [SIMD3<Float>] = []
             for point in pointCloud{
-                if (target.y*100 - Float(1) < point.y*100 && point.y*100 < target.y*100 + Float(1)) &&
-                    (target.z*100 - Float(0.5) < point.z*100 && point.z*100 < target.z*100 + Float(0.5)) &&
+                if (target.y*100 - Float(0) < point.y*100 && point.y*100 < target.y*100 + Float(2)) &&
+                    (target.z*100 - Float(0.0) < point.z*100 && point.z*100 < target.z*100 + Float(2)) &&
                     (target.x*100 - Float(5) < point.x*100 && point.x*100 < target.x*100 + Float(5))
                 {
                     pointCloudCheck.append(point)
@@ -264,7 +321,7 @@ class ARViewFunctions: ARView{
     
     
     func SafeDeviceHeight() -> Float{
-        
+//          average_after_Device=findMax(array: y_List)
         average_after_Device=average(array: y_List)
         pointDevice!.y = average_after_Device
         addFinalDotDevice(position: pointDevice!, name: "pointDevice_Final")
@@ -453,8 +510,8 @@ class ARViewFunctions: ARView{
 //        let anchorEntity = AnchorEntity(anchor: anchor)
 //        anchorEntity.addChild(dot, preservingWorldTransform: true)
         
-        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor1")
-        else {print("Cant find masterAnchor1")
+        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor")
+        else {print("Cant find masterAnchor")
             return }
         masterAnchor.addChild(dot, preservingWorldTransform: true)
         
@@ -471,8 +528,8 @@ class ARViewFunctions: ARView{
 //        let anchorEntity = AnchorEntity(anchor: anchor)
 //        anchorEntity.addChild(dot, preservingWorldTransform: true)
 
-        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor2")
-        else {print("Cant find master anchor2")
+        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor")
+        else {print("Cant find master anchor")
             return }
         masterAnchor.addChild(dot, preservingWorldTransform: true)
     }
@@ -489,8 +546,8 @@ class ARViewFunctions: ARView{
 //        anchorEntity.addChild(dot, preservingWorldTransform: true)
         
 
-        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor1")
-        else {print("Cant find master anchor1")
+        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor")
+        else {print("Cant find master anchor")
             return }
         masterAnchor.addChild(dot, preservingWorldTransform: true)
     }
@@ -507,8 +564,8 @@ class ARViewFunctions: ARView{
 //        anchorEntity.addChild(dot, preservingWorldTransform: true)
         
 
-        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor1")
-        else {print("Cant find master anchor1")
+        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor")
+        else {print("Cant find master anchor")
             return }
         masterAnchor.addChild(dot, preservingWorldTransform: true)
     }
@@ -525,8 +582,26 @@ class ARViewFunctions: ARView{
 //        anchorEntity.addChild(dot, preservingWorldTransform: true)
         
 
-        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor2")
-        else {print("Cant find master anchor2")
+        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor")
+        else {print("Cant find master anchor")
+            return }
+        masterAnchor.addChild(dot, preservingWorldTransform: true)
+    }
+    
+    func addFinalDotRail(position: SIMD3<Float>, name: String){
+        
+        let dotMesh : MeshResource = .generateSphere(radius: 0.001)
+        let material = UnlitMaterial(color: UIColor.init(red: 255/255, green: 10/255, blue: 10/255, alpha: 0.7))
+        let dot = ModelEntity.init(mesh: dotMesh, materials: [material])
+        dot.name = name
+        dot.setPosition(position, relativeTo: nil)
+
+//        let anchorEntity = AnchorEntity(anchor: anchor)
+//        anchorEntity.addChild(dot, preservingWorldTransform: true)
+        
+
+        guard let masterAnchor = self.scene.findEntity(named: "masterAnchor")
+        else {print("Cant find master anchor")
             return }
         masterAnchor.addChild(dot, preservingWorldTransform: true)
     }
@@ -552,14 +627,14 @@ class ARViewFunctions: ARView{
     }
 }
 
-extension ARViewFunctions: FocusEntityDelegate {
-    func toTrackingState() {
-        print("tracking")
-    }
-    func toInitializingState() {
-        print("initializing")
-    }
-}
+//extension ARViewFunctions: FocusEntityDelegate {
+//    func toTrackingState() {
+//        print("tracking")
+//    }
+//    func toInitializingState() {
+//        print("initializing")
+//    }
+//}
 
 
 extension simd_float4x4{
