@@ -25,7 +25,7 @@ struct MeasureDeviceHeight: View {
                 Image(systemName: "equal")
             }.foregroundColor(.yellow)
                 .frame(width: 50, height: 100)
-                .position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*4.7)
+                .position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*4.6)
             
             DeviceControlView(isDeviceFinished: $isDeviceFinished)
         }.navigationBarHidden(true)
@@ -119,7 +119,7 @@ struct DeviceControlView: View
                             {
                         print("DEBUG: Cancel chosen feature point.")
 //                        arViewContainer.arView.resetAPoint(name: "Device")
-                        arViewContainer.arView.resetAllCheckPoint()
+                        arViewContainer.arView.resetAllCheckPointDevice()
                         Hint = "Focus Edge & Capture"
                     })
                     {Image(systemName: "xmark").foregroundColor(.white)
@@ -146,6 +146,7 @@ struct DeviceControlView: View
                     Button(action: {
                         self.safeAndCalculate()
                         isDeviceFinished=true
+                        arViewContainer.arView.resetAllCheckPointDevice()
                     }
                     )
                     {Image(systemName: "checkmark").foregroundColor(.white)
@@ -165,7 +166,7 @@ struct DeviceControlView: View
     func castRay()
     {
 //        isHit = arViewContainer.arView.castRayToDevice()
-        let passed = arViewContainer.arView.castRayToDevice()
+        let passed = arViewContainer.arView.castRayToDeviceThree()
 
         if passed {
             print("DEBUG: Success to hit.")

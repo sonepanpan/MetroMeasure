@@ -11,6 +11,7 @@ import ARKit
 import RealityKit
 import FocusEntity
 import SwiftUI
+import XCTest
 
 class ARViewFunctions: ARView{
 
@@ -18,9 +19,14 @@ class ARViewFunctions: ARView{
     var pointRail: SIMD3<Float>? = nil
     var average_after_Device: Float = -1.0
     var average_after_Rail: Float = -1.0
-    var numOfFeature = 0
-    var pointCloudCheck: [SIMD3<Float>] = []
-    var y_List: [Float] = []
+    var numOfFeatureDevice = 0
+    var pointCloudDevice: [SIMD3<Float>] = []
+    var y_ListDevice: [Float] = []
+    
+    var numOfFeatureRail = 0
+    var pointCloudRail: [SIMD3<Float>] = []
+    
+    var y_ListRail: [Float] = []
     
     // FocusEntity
     enum FocusStyleChoices {
@@ -129,14 +135,14 @@ class ARViewFunctions: ARView{
     }
     
     func castRayToRailThree() -> Bool {
-        var y_List: [Float] = []
-        var y_Rail_List: [Float] = []
+        var y_List: [SIMD3<Float>] = []
+        var y_Rail_List: [SIMD3<Float>] = []
         let location = CGPoint(x: bounds.midX, y: bounds.midY)
         //let location = CGPoint(x: self.view.frame.height / 2, y:self.view.frame.height / 2)
         let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
         var i: Int = 0
         if let firstResult = result.first{
-            let target = firstResult.worldTransform.Position()
+            let _ = firstResult.worldTransform.Position()
             for delta_x in -1...1
             {
                 for delta_y in -20...20
@@ -159,98 +165,53 @@ class ARViewFunctions: ARView{
                         //                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
                         print("point_Rail_\(i): \(result.first!.worldTransform.Position())")
                         i+=1
-                        y_Rail_List.append(result.first!.worldTransform.Position().y)
+                        y_Rail_List.append(result.first!.worldTransform.Position())
                     }
                 }
-                let temp_y = findMax(array: y_Rail_List)
-                if temp_y != 0.0{
-                    y_List.append(temp_y)
-                }
-                else{
-                    y_List.append(target.y)
-                }
+                let temp_y = findMaxPoint(array: y_Rail_List)
+                y_List.append(temp_y)
             }
             
-            pointRail = target
+            pointRail = averagePoint(array: y_List)
             addDotRail(position: pointRail!, name: "pointRail")
+//            addCheckDotDevice(position: pointDevice!, name: "pointDevice_Check")
+//            print("\(average_after_Device)")
 
-            
-            average_after_Rail = average(array: y_List)
-            pointRail!.y = average_after_Rail
-            addCheckDotRail(position: pointRail!, name: "pointRail_Check")
-
-            print("\(average_after_Rail)")
             return true
         }
         print("DEBUG: Fall to hit")
         return false
     }
     
-    
-    func castRayToDeviceThree() -> Bool {
-        var y_List: [Float] = []
-        var y_Device_List: [Float] = []
-        let location = CGPoint(x: bounds.midX, y: bounds.midY)
-        //let location = CGPoint(x: self.view.frame.height / 2, y:self.view.frame.height / 2)
-        let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
-        var i: Int = 0
-        if let firstResult = result.first{
-            let anchor = ARAnchor(name: "masterAnchor1", transform: firstResult.worldTransform)
-            self.session.add(anchor: anchor)
+    func FeaturePointToRail() -> Bool {
+        
+        if self.pointRail != nil{
+
+            guard let frame = self.session.currentFrame else{ return false }
+            guard let pointCloud = frame.rawFeaturePoints?.points else{ return false }
+            guard let target = pointRail else{ return false }
             
-            let masterAnchor1 = Entity()
-            masterAnchor1.name = "masterAnchor1"
-            
-            let ARAnchorEntity = AnchorEntity(anchor: anchor)
-            self.scene.addAnchor(ARAnchorEntity)
-            ARAnchorEntity.addChild(masterAnchor1)
-            
-            self.session.add(anchor: anchor)
-            let target = firstResult.worldTransform.Position()
-            for delta_x in -1...1
-            {
-                for delta_y in -20...20
+//            var pointCloud_after: [SIMD3<Float>] = []
+            for point in pointCloud{
+                if (target.y*100 - Float(0) < point.y*100 && point.y*100 < target.y*100 + Float(1)) &&
+                    (target.z*100 - Float(0.3) < point.z*100 && point.z*100 < target.z*100 + Float(0.3)) &&
+                    (target.x*100 - Float(5) < point.x*100 && point.x*100 < target.x*100 + Float(5))
                 {
-                    let point = CGPoint(x: bounds.midX + CGFloat(Double(delta_x)*10), y: bounds.midY + CGFloat(Double(delta_y)*2))
-                    let result = self.raycast(from: point, allowing: .estimatedPlane, alignment: .any)
-//                    self.trackedRaycast(from: point, allowing: .estimatedPlane, alignment: .any, updateHandler: { [self] result in
-//                        if result.first != nil{
-//                            self.addDot(position: result.first!.worldTransform.Position(), name: "point_Device_\(i)")
-//
-//                            i+=1
-//                            y_Device_List.append(result.first!.worldTransform.Position().y)
-//                        }
-//
-//                    })
-                    if result.first != nil{
-                        //射線範圍顯示
-                        //                        addDot(position: result.first!.worldTransform.Position(), name: "point_\(delta_x)_\(delta_y)")
-//                        addDotDevice(position: result.first!.worldTransform.Position(), name: "point_Device_\(i)", anchor: anchor)
-                        //                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
-                        print("point_Device_\(i): \(result.first!.worldTransform.Position())")
-                        i+=1
-                        y_Device_List.append(result.first!.worldTransform.Position().y)
-                    }
-                }
-                let temp_y = findMax(array: y_Device_List)
-                if temp_y != 0.0{
-                    y_List.append(temp_y)
-                }
-                else{
-                    y_List.append(target.y)
+                    pointCloudRail.append(point)
+                    y_ListRail.append(point.y)
+                    addCheckDotRail(position: point, name: "pointRail_check\(numOfFeatureRail)")
+                    numOfFeatureRail+=1
+                    print(point)
                 }
             }
-            
-            pointDevice = target
-            addDotDevice(position: pointDevice!, name: "pointDevice")
-
-            
-            average_after_Device = average(array: y_List)
-            pointDevice!.y = average_after_Device
-            addCheckDotDevice(position: pointDevice!, name: "pointDevice_Check")
-
-            print("\(average_after_Device)")
-            return true
+//            print("feature point: \(pointCloud_after.count)")
+            print("feature point: \(pointCloudRail.count)")
+            if pointCloudRail.count >= 3{
+                return true
+            }
+            else{
+                return false
+            }
         }
         print("DEBUG: Fall to hit")
         return false
@@ -285,6 +246,75 @@ class ARViewFunctions: ARView{
     }
     
     
+    func castRayToDeviceThree() -> Bool {
+        var y_List: [Float] = []
+        var y_Device_List: [Float] = []
+        let location = CGPoint(x: bounds.midX, y: bounds.midY)
+        //let location = CGPoint(x: self.view.frame.height / 2, y:self.view.frame.height / 2)
+        let result = self.raycast(from: location, allowing: .estimatedPlane, alignment: .any)
+        var i: Int = 0
+        if let firstResult = result.first{
+            let anchor = ARAnchor(name: "masterAnchor1", transform: firstResult.worldTransform)
+            self.session.add(anchor: anchor)
+            
+            let masterAnchor1 = Entity()
+            masterAnchor1.name = "masterAnchor1"
+            
+            let ARAnchorEntity = AnchorEntity(anchor: anchor)
+            self.scene.addAnchor(ARAnchorEntity)
+            ARAnchorEntity.addChild(masterAnchor1)
+            
+            self.session.add(anchor: anchor)
+            let target = firstResult.worldTransform.Position()
+            for delta_x in -1...1
+            {
+                for delta_y in -20...20
+                {
+                    let point = CGPoint(x: bounds.midX + CGFloat(Double(delta_x)*10), y: bounds.midY + CGFloat(Double(delta_y)*2))
+                    let result = self.raycast(from: point, allowing: .estimatedPlane, alignment: .any)
+//                    self.trackedRaycast(from: point, allowing: .estimatedPlane, alignment: .any, updateHandler: { [self] result in
+                    //                        if result.first != nil{
+                    //                            self.addDot(position: result.first!.worldTransform.Position(), name: "point_Device_\(i)")
+                    //
+                    //                            i+=1
+                    //                            y_Device_List.append(result.first!.worldTransform.Position().y)
+                    //                        }
+                    //
+                    //                    })
+                    if result.first != nil{
+                        //射線範圍顯示
+                        //                        addDot(position: result.first!.worldTransform.Position(), name: "point_\(delta_x)_\(delta_y)")
+                        //                        addDotDevice(position: result.first!.worldTransform.Position(), name: "point_Device_\(i)", anchor: anchor)
+                        //                        print("point_\(delta_x)_\(delta_y): \(result.first!.worldTransform.Position())")
+                        print("point_Device_\(i): \(result.first!.worldTransform.Position())")
+                        i+=1
+                        y_Device_List.append(result.first!.worldTransform.Position().y)
+                    }
+                }
+                let temp_y = findMax(array: y_List)
+                if temp_y != 0.0{
+                    y_List.append(temp_y)
+                }
+                else{
+                    y_List.append(target.y)
+                }
+            }
+            
+            pointRail = target
+            pointRail!.y = average(array: y_List)
+            addDotRail(position: pointRail!, name: "pointRail")
+            //            addCheckDotRail(position: pointRail!, name: "pointRail_Check")
+            
+            return true
+            
+        }
+        
+        print("DEBUG: Fall to hit")
+        return false
+    }
+        
+    
+    
     func FeaturePointToDevice() -> Bool {
         
         if self.pointDevice != nil{
@@ -299,16 +329,16 @@ class ARViewFunctions: ARView{
                     (target.z*100 - Float(0.0) < point.z*100 && point.z*100 < target.z*100 + Float(2)) &&
                     (target.x*100 - Float(5) < point.x*100 && point.x*100 < target.x*100 + Float(5))
                 {
-                    pointCloudCheck.append(point)
-                    y_List.append(point.y)
-                    addCheckDotDevice(position: point, name: "pointDevice_check\(numOfFeature)")
-                    numOfFeature+=1
+                    pointCloudDevice.append(point)
+                    y_ListDevice.append(point.y)
+                    addCheckDotDevice(position: point, name: "pointDevice_check\(numOfFeatureDevice)")
+                    numOfFeatureDevice+=1
                     print(point)
                 }
             }
 //            print("feature point: \(pointCloud_after.count)")
-            print("feature point: \(pointCloudCheck.count)")
-            if pointCloudCheck.count >= 3{
+            print("feature point: \(pointCloudDevice.count)")
+            if pointCloudDevice.count >= 3{
                 return true
             }
             else{
@@ -322,7 +352,7 @@ class ARViewFunctions: ARView{
     
     func SafeDeviceHeight() -> Float{
 //          average_after_Device=findMax(array: y_List)
-        average_after_Device=average(array: y_List)
+        average_after_Device=average(array: y_ListDevice)
         pointDevice!.y = average_after_Device
         addFinalDotDevice(position: pointDevice!, name: "pointDevice_Final")
 
@@ -331,6 +361,11 @@ class ARViewFunctions: ARView{
     }
     
     func SafeRailHeight() -> Float {
+        average_after_Rail=average(array: y_ListRail)
+        pointRail!.y = average_after_Rail
+        addFinalDotRail(position: pointRail!, name: "pointRail_Final")
+
+        print(average_after_Rail)
         return average_after_Rail
     }
     
@@ -379,13 +414,22 @@ class ARViewFunctions: ARView{
     }
 
     
-    func resetAllCheckPoint(){
-        for i in 0..<pointCloudCheck.count {
+    func resetAllCheckPointDevice(){
+        for i in 0..<pointCloudDevice.count {
             guard let p = self.scene.findEntity(named: "pointDevice_check\(i)") else {print("cant find pointDevice_check\(i)")
                 return }
             p.removeFromParent()
         }
-        print("DEBUG: Reset ALL Check Points.")
+        print("DEBUG: Reset ALL DEVICE Check Points.")
+    }
+    
+    func resetAllCheckPointRail(){
+        for i in 0..<pointCloudRail.count {
+            guard let p = self.scene.findEntity(named: "pointRail_check\(i)") else {print("cant find pointRail_check\(i)")
+                return }
+            p.removeFromParent()
+        }
+        print("DEBUG: Reset ALL RAIL Check Points.")
     }
     
     func average(array: [Float]) -> Float{
@@ -397,6 +441,22 @@ class ARViewFunctions: ARView{
         
     }
     
+    func averagePoint(array: [SIMD3<Float>]) -> SIMD3<Float>{
+        var sumX: Float = 0.0
+        var sumY: Float = 0.0
+        var sumZ: Float = 0.0
+        var aver = SIMD3<Float>(x:0, y:0, z:0)
+        for point in array{
+            sumX += point.x
+            sumY += point.y
+            sumZ += point.z
+        }
+        aver.x = sumX/(Float(array.count))
+        aver.y = sumY/(Float(array.count))
+        aver.z = sumZ/(Float(array.count))
+        return aver
+    }
+    
     
     func std(array: [Float]) -> Float{
         let average_origin = average(array: array)
@@ -405,6 +465,21 @@ class ARViewFunctions: ARView{
             sum_std += pow((z - average_origin),2)
         }
         return sqrt((sum_std/(Float(array.count)-1)))
+    }
+    
+    
+    func findMaxPoint (array: [SIMD3<Float>]) -> SIMD3<Float>{
+        let List: [SIMD3<Float>] = array
+        @State var i: Int = 0
+        var max=List[i]
+        for i in 1..<List.count{
+            if(max.y < List[i].y){
+                max.x = List[i].x
+                max.y = List[i].y
+                max.z = List[i].z
+            }
+        }
+        return max
     }
     
     func findMax (array: [Float]) -> Float{
