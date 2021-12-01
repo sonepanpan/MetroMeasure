@@ -418,7 +418,7 @@
 				8F9AFD4D26E0B696009AB686 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		8F9AFD4E26E0B696009AB686 /* Build configuration list for PBXNativeTarget "MetroMeasure" */ = {
 			isa = XCConfigurationList;
@@ -427,7 +427,7 @@
 				8F9AFD5026E0B696009AB686 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 

@@ -23,8 +23,8 @@ class AppParameters: ObservableObject{
     @Published var measuredHeightBefore: Float = -1
     @Published var measuredHeightAfter: Float = -1
 
-    @Published var StandardHeightLower: Float = 10.0 //(230-2)/10
-    @Published var StandardHeightHigher: Float = 100.0 //(230+2)/10
+    @Published var StandardHeightLower: Float = 21.25 //(230-2)/10
+    @Published var StandardHeightHigher: Float = 31.25 //(230+2)/10
 
     @Published var paper: Paper = Paper(groupNum: "", paperNum: "", startDate: .init(), operatorName: "")
     @Published var carriage: Carriage = Carriage(carriageNum: "", deviceNum: "")

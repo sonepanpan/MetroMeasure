@@ -18,15 +18,34 @@ struct ScanView: View{
     @Binding var step: MeasureView.stage
     @Binding var carriageNum: String
     @Binding var deviceNum: String
+    @State var numComfirmed: Bool = false
+    
 
     
     var body: some View{
         ZStack{
-
-            CodeScannerView(codeTypes: [.qr], simulatedData: "Some simulated data", completion: self.handleScan)
+            ZStack{
+                CodeScannerView(codeTypes: [.qr], simulatedData: "Some simulated data", completion: self.handleScan)
+                if numComfirmed{
+                    HStack{
+                        Image(systemName: "minus")
+                        Image(systemName: "minus")
+                        Image(systemName: "minus")
+                    }.foregroundColor(.yellow)
+                        .position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*3.8)
+                }
+            }
             VStack{
                 Text(Result).font(.title3).frame(alignment: .center)//.foregroundColor(.black).background(Color.blue).position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*3)
-                Button("COMFIRM"){step = MeasureView.stage.measure}.frame(width: 130, height: 60, alignment: .center)
+                Button("COMFIRM"){
+                    if numComfirmed{
+                        step = MeasureView.stage.measure
+                    }
+                    else{
+                        Result = "請確認集電靴邊緣與虛線對齊"
+                        numComfirmed = true
+                    }
+                }.frame(width: 130, height: 60, alignment: .center)
                     .font(.title2)
                     .foregroundColor(.white)
                     .background(isScanWorked ? Color.blue : Color.gray)
@@ -56,23 +75,5 @@ struct ScanView: View{
             print("Scanning failed \(error)")
         }
     }
-    //    func handleScan(result: Result<String, CodeScannerView.ScanError>){
-    //        self.isShowingScanner = false
-    //        //more code
-    //        switch result{
-    //        case .success(let code):
-    //            let details = code.components(separatedBy: "\n")
-    //            guard details.count == 2 else {return}
-    //            print(details)
-    ////            let data = Prospect
-    ////            data.name = details[0]
-    ////            data.num = detail[1]
-    ////            self.prospect.data.append(data)
-    //        case .failure(_):
-    //            print("DEBUG: Scanning failed.")
-    //
-    //        }
-    //
-    //    }
 }
 

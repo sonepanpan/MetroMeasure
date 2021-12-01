@@ -13,6 +13,7 @@ struct MeasureRailHeight: View {
     @EnvironmentObject var parameters: AppParameters
     @State var isRailFinished: Bool = false
     @State var isPassed: Bool = false
+    @State private var flashlight = false
     
     @Binding var showScanView: Bool
     @Binding var safeNum: Int
@@ -21,13 +22,22 @@ struct MeasureRailHeight: View {
     
     var body: some View {
         ZStack(alignment: .center){
-            HStack{
-                Image(systemName: "minus")
-                Image(systemName: "minus")
-                Image(systemName: "minus")
-            }.foregroundColor(.yellow)
-                .position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*4.6)
-            
+            VStack{
+                Toggle("Need Some Light?", isOn: $flashlight).foregroundColor(.white).onChange(of: flashlight, perform: { value in
+                    if flashlight{
+                        toggleTorch(on: true)
+                    }
+                    else{
+                        toggleTorch(on: false)
+                    }
+                }).frame(width: 250, height: 30, alignment: .center).padding()
+                HStack{
+                    Image(systemName: "minus")
+                    Image(systemName: "minus")
+                    Image(systemName: "minus")
+                }.foregroundColor(.yellow)
+                    .position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*3.8)
+            }
             if isRailFinished{
                 RailResultView(isRailFinished: $isRailFinished, showScanView: $showScanView, isHeightPassed: $isHeightPassed, isPassed: $isPassed, safeNum: $safeNum)
             }
@@ -126,11 +136,13 @@ struct RailResultView: View {
 struct RailControlView: View{
     @EnvironmentObject var parameters: AppParameters
     @State var isHit: Bool = false
-    @State var Hint: String = "Cast Ray at Rail"
+    @State var Hint1: String = "瞄準鐵軌正中央"
+    @State var Hint2: String = "保持40cm以上距離"
+    
     @Binding var isRailFinished: Bool
     @Binding var isPassed: Bool
     
-    @State private var flashlight = false
+    
     
     @State var stage = step.castRay
     @State var FeatureFinish: Bool = false
@@ -143,15 +155,8 @@ struct RailControlView: View{
     var body: some View
     {
         VStack{
-            Toggle("Need Some Light?", isOn: $flashlight).foregroundColor(.white).onChange(of: flashlight, perform: { value in
-                if flashlight{
-                    toggleTorch(on: true)
-                }
-                else{
-                    toggleTorch(on: false)
-                }
-            }).frame(width: 250, height: 30, alignment: .center)
-            Text(Hint).foregroundColor(.white).font(.largeTitle)
+            Text(Hint2).foregroundColor(.white).font(.title3).padding()
+            Text(Hint1).foregroundColor(.white).font(.title)
             HStack
             {
                 switch stage{
@@ -162,7 +167,8 @@ struct RailControlView: View{
                                 {
                             print("DEBUG: Cancel chosen device point.")
                             arViewContainer.arView.resetAPoint(name: "Rail")
-                            Hint = "Cast Ray at Rail"
+                            Hint1 = "瞄準鐵軌正中央"
+                            Hint2 = "保持40cm以上距離"
                             isHit = false
                         })
                         {Image(systemName: "xmark").foregroundColor(.white)
@@ -177,7 +183,8 @@ struct RailControlView: View{
                         //V Button
                         Button(action: {
                             self.stage = step.featurePoint
-                            Hint = "Focus Rail & Capture"
+                            Hint1 = "瞄準鐵軌中央"
+                            Hint2 = "盡可能接近鐵軌"
                         }
                         )
                         {Image(systemName: "checkmark").foregroundColor(.white)
@@ -205,13 +212,17 @@ struct RailControlView: View{
                     
                     //Minus Button
                     Button(action:
-                            {
+                    {
                         print("DEBUG: Cancel chosen feature point.")
 //                        arViewContainer.arView.resetAPoint(name: "Device")
                         arViewContainer.arView.resetAllCheckPointRail()
-                        Hint = "Focus Edge & Capture"
+                        arViewContainer.arView.resetAPoint(name: "Rail")
+                        Hint1 = "瞄準鐵軌正中央"
+                        Hint2 = "保持40cm以上距離"
+                        isHit = false
+                        self.stage = step.castRay
                     })
-                    {Image(systemName: "xmark").foregroundColor(.white)
+                    {Image(systemName: "arrowshape.turn.up.backward").foregroundColor(.white)
                             .frame(width: 60, height: 60)
                             .font(.title)
                             .background(Color.red)
@@ -235,6 +246,8 @@ struct RailControlView: View{
                     Button(action: {
                         isPassed = self.safeAndCalculate()
                         isRailFinished=true
+                        arViewContainer.arView.resetAPoint(name: "Rail")
+                        arViewContainer.arView.resetAllCheckPointRail()
                     }
                     )
                     {Image(systemName: "checkmark").foregroundColor(.white)
@@ -249,6 +262,28 @@ struct RailControlView: View{
             }
         }.position(x: UIScreen.main.bounds.width/2 , y: UIScreen.main.bounds.height/10*7.5)
     }
+
+    
+    func castRay()
+    {
+        isHit = arViewContainer.arView.castRayToRailThree()
+        if isHit {
+            print("DEBUG: Success to hit.")
+            haptic()
+            Hint1 = "Cancel or Continue"
+            Hint2 = "確認綠色的點位於鐵軌中央之表面附近"
+            // Change View
+            return
+        }
+        else{
+            //isHit == false
+            print("DEBUG: Fall to hit.")
+            //Not change View
+            Hint1 = "Please Try Again"
+            Hint2 = "保持40cm以上距離"
+            return
+        }
+    }
     
     func featurePoint()
     {
@@ -258,35 +293,18 @@ struct RailControlView: View{
         if passed {
             print("DEBUG: Success to hit.")
             haptic()
-            Hint = "Cancel or Continue"
+            Hint1 = "Cancel or Continue"
+            Hint2 = "確認粉色的點散佈於鐵軌中央"
             // Change View
         }
         else{
             //isHit == false
             print("DEBUG: Fall to hit.")
             //Not change View
-            Hint = "Please Try Again"
+            Hint1 = "盡可能接近鐵軌"
+            Hint2 = "確認粉色的點散佈於鐵軌中央"
         }
         self.FeatureFinish = passed
-    }
-    
-    func castRay()
-    {
-        isHit = arViewContainer.arView.castRayToRailThree()
-        if isHit {
-            print("DEBUG: Success to hit.")
-            haptic()
-            Hint = "Cancel or Continue"
-            // Change View
-            return
-        }
-        else{
-            //isHit == false
-            print("DEBUG: Fall to hit.")
-            //Not change View
-            Hint = "Please Try Again"
-            return
-        }
     }
     
     func safeAndCalculate() -> Bool{
